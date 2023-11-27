@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
+//@Setter
 @Getter
 @ToString
 @Component("imageFileVO")

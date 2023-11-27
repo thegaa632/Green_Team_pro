@@ -45,8 +45,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 		int goods_id = adminGoodsDAO.insertNewGoods(newGoodsMap);
 		
 		//해당 goods_id값을 img에 대입해 insert한다.
-		ArrayList<ImageFileVO> imageFileList = (ArrayList) newGoodsMap.get("imageFileList");
-		for (ImageFileVO imageFileVO : imageFileList) {imageFileVO.setGoods_id(goods_id);}
+		ArrayList<ImageFileDTO> imageFileList = (ArrayList) newGoodsMap.get("imageFileList");
+		for (ImageFileDTO imageFileDTO : imageFileList) {imageFileDTO.setGoods_id(goods_id);}
 		adminGoodsDAO.insertGoodsImageFile(imageFileList);
 		
 		return goods_id;

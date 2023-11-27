@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 
 
 @Getter
-@Setter
+//@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString

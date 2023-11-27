@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Setter
+//@Setter
 @Getter
 @ToString
 @Component("goodsVO")

@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
-@Setter
+//@Setter
 @Component("myPageVO")
 public class MyPageVO {
 	private String member_id;

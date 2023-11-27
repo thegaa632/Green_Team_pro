@@ -14,5 +14,7 @@ public interface OrderDAO {
 
 	//주문완료시 장바구니에서 상품 제거
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException;
-	
+
+
+	public int selectOrderID()throws DataAccessException;
 }

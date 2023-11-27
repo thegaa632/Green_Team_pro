@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.standout.sopang.order.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -109,7 +110,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 				//goodsid와 전달받은 상품 id값이 같을때
 				if (goods_id == Integer.parseInt(cart_goods[0])) {
 					//주문객체를 생성한다.
-					OrderVO _orderVO = new OrderVO();
+					OrderDTO _orderDTO = new OrderDTO();
 					//해당상품 title저장
 					String goods_title = goodsVO.getGoods_title();
 					//해당상품 수량 저장
@@ -117,13 +118,13 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 					//해당상품 fileName도 저장해
 					String goods_fileName = goodsVO.getGoods_fileName();
 					//주문객체에 set
-					_orderVO.setGoods_id(goods_id);
-					_orderVO.setGoods_title(goods_title);
-					_orderVO.setGoods_sales_price(goods_sales_price);
-					_orderVO.setGoods_fileName(goods_fileName);
-					_orderVO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
+					_orderDTO.setGoods_id(goods_id);
+					_orderDTO.setGoods_title(goods_title);
+					_orderDTO.setGoods_sales_price(goods_sales_price);
+					_orderDTO.setGoods_fileName(goods_fileName);
+					_orderDTO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
 					//완성된 주문객체는 myOrderList에 쌓아간다.
-					myOrderList.add(_orderVO);
+					myOrderList.add(_orderDTO);
 					break;
 				}
 			}
@@ -149,7 +150,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		String orderer_hp = memberVO.getHp1();
 
 		//주문정보를 가져온다.
-		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
+		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 		
 		//결제성공여부
 		String responseCode = "";
@@ -159,32 +160,32 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		int amount = 0;
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
-			OrderVO orderVO = (OrderVO) myOrderList.get(i);
-			orderVO.setMember_id(member_id);
-			orderVO.setReceiver_name(receiverMap.get("receiver_name"));
-			orderVO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
-			orderVO.setDelivery_address(receiverMap.get("delivery_address"));
+			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
+			orderDTO.setMember_id(member_id);
+			orderDTO.setReceiver_name(receiverMap.get("receiver_name"));
+			orderDTO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
+			orderDTO.setDelivery_address(receiverMap.get("delivery_address"));
 
 			//추후 결제시 필요할 수 있으니 주석으로 남겨둔다.
-			orderVO.setPay_method(receiverMap.get("pay_method"));
-			orderVO.setCard_com_name(receiverMap.get("card_com_name"));
-			orderVO.setCard_pay_month(receiverMap.get("card_pay_month"));
-			orderVO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));	
-			orderVO.setOrderer_hp(orderer_hp);
+			orderDTO.setPay_method(receiverMap.get("pay_method"));
+			orderDTO.setCard_com_name(receiverMap.get("card_com_name"));
+			orderDTO.setCard_pay_month(receiverMap.get("card_pay_month"));
+			orderDTO.setPay_orderer_hp_num(receiverMap.get("pay_orderer_hp_num"));
+			orderDTO.setOrderer_hp(orderer_hp);
 			
 			
 			
 			//payup form 추가
 			if(myOrderList.size() == 1) {
-				itemName = orderVO.getGoods_title();
+				itemName = orderDTO.getGoods_title();
 			}else if(myOrderList.size() > 1){
-				itemName = orderVO.getGoods_title() +" 외 " + i + "건";
+				itemName = orderDTO.getGoods_title() +" 외 " + i + "건";
 			}
-			orderNumber += String.valueOf(orderVO.getOrder_seq_num());
-			amount += orderVO.getGoods_sales_price();
+			orderNumber += String.valueOf(orderDTO.getOrder_seq_num());
+			amount += orderDTO.getGoods_sales_price();
 
 //			amount = String.valueOf(orderVO.getGoods_sales_price());
-			myOrderList.set(i, orderVO);
+			myOrderList.set(i, orderDTO);
 		}
 		
 		String merchantId = "himedia";

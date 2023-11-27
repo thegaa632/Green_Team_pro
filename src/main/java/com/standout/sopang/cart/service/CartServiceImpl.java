@@ -35,7 +35,6 @@ public class CartServiceImpl implements CartService {
 
 		//장바구니 정보 가져와 list에 저장
 		List<CartVO> myCartList = cartDAO.selectCartList(cartDTO);
-
 		List<CartDTO>	myCartDTOList	 = carConvertDTO.convertDTO(myCartList);
 
 		//리스트가 없는 경우 return null

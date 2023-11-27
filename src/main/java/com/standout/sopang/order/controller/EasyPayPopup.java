@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.standout.sopang.member.dto.MemberDTO;
+import com.standout.sopang.order.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -34,28 +36,28 @@ public class EasyPayPopup {
 		
 		//주문자 정보를 가져온다.
 		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("orderer");
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("orderer");
 		
 		//주문정보를 가져온다.
-		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
+		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 				
 		String itemName = "";
 		String orderNumber = "";
 		for (int i = 0; i < myOrderList.size(); i++) {
-			OrderVO orderVO = (OrderVO) myOrderList.get(i);
+			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
 			if(myOrderList.size() == 1) {
-				itemName = orderVO.getGoods_title();
+				itemName = orderDTO.getGoods_title();
 			}else if(myOrderList.size() > 1){
-				itemName = orderVO.getGoods_title() +"외 " + i + "건";
+				itemName = orderDTO.getGoods_title() +"외 " + i + "건";
 			}
-			orderNumber = String.valueOf(orderVO.getOrder_seq_num());
+			orderNumber = String.valueOf(orderDTO.getOrder_seq_num());
 		}
 
 		String userAgent = "WP";
 		String merchantId = "himedia";
 //		String amount = dateMap.get("amount");
 		String amount = "100";
-		String userName = memberVO.getMember_name();
+		String userName = memberDTO.getMember_name();
 		String returnUrl = "모바일전용데이터";
 		String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
 		String timestamp = "2023020400000000";

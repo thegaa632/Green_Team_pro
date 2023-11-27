@@ -79,12 +79,14 @@
 	<!-- 주문번호 시퀀스를 생성 -->
 	<!-- 주문번호 시퀀스를 생성하여 결과값을 반환한다. -->
 	<select id="selectOrderID" resultType="int">
-	    <![CDATA[
-		    select seq_order_id.nextval from dual
-    	]]>
-	</select>
-	
-	
+    <![CDATA[
+		INSERT INTO your_table_name (order_id)
+		VALUES (NULL);
+
+		SELECT LAST_INSERT_ID() AS order_id;
+		]]>
+</select>
+
 
 
 	<!-- 주문완료시 장바구니에서 상품 제거 -->

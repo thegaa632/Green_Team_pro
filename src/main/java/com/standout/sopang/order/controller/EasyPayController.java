@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.standout.sopang.order.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -44,24 +45,24 @@ public class EasyPayController {
 		String member_id = memberVO.getMember_id();
 		String orderer_name = memberVO.getMember_name();
 		String orderer_hp = memberVO.getHp1();
-		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
+		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 		
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
-			OrderVO orderVO = (OrderVO) myOrderList.get(i);
-			orderVO.setMember_id(member_id);
-			orderVO.setReceiver_name(map.get("receiver_name"));
-			orderVO.setReceiver_hp1(map.get("receiver_hp1"));
-			orderVO.setDelivery_address(map.get("delivery_address"));
+			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
+			orderDTO.setMember_id(member_id);
+			orderDTO.setReceiver_name(map.get("receiver_name"));
+			orderDTO.setReceiver_hp1(map.get("receiver_hp1"));
+			orderDTO.setDelivery_address(map.get("delivery_address"));
 
 			//추후 결제시 필요할 수 있으니 주석으로 남겨둔다.
-			orderVO.setPay_method(map.get("pay_method"));
-			orderVO.setCard_com_name(map.get("card_com_name"));
-			orderVO.setCard_pay_month(map.get("card_pay_month"));
-			orderVO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));	
-			orderVO.setOrderer_hp(orderer_hp);
+			orderDTO.setPay_method(map.get("pay_method"));
+			orderDTO.setCard_com_name(map.get("card_com_name"));
+			orderDTO.setCard_pay_month(map.get("card_pay_month"));
+			orderDTO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));
+			orderDTO.setOrderer_hp(orderer_hp);
 			
-			myOrderList.set(i, orderVO);
+			myOrderList.set(i, orderDTO);
 		}
 		
 		
@@ -117,24 +118,24 @@ public class EasyPayController {
 		String member_id = memberVO.getMember_id();
 		String orderer_name = memberVO.getMember_name();
 		String orderer_hp = memberVO.getHp1();
-		List<OrderVO> myOrderList = (List<OrderVO>) session.getAttribute("myOrderList");
+		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 		
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
-			OrderVO orderVO = (OrderVO) myOrderList.get(i);
-			orderVO.setMember_id(member_id);
-			orderVO.setReceiver_name(map.get("receiver_name"));
-			orderVO.setReceiver_hp1(map.get("receiver_hp1"));
-			orderVO.setDelivery_address(map.get("delivery_address"));
+			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
+			orderDTO.setMember_id(member_id);
+			orderDTO.setReceiver_name(map.get("receiver_name"));
+			orderDTO.setReceiver_hp1(map.get("receiver_hp1"));
+			orderDTO.setDelivery_address(map.get("delivery_address"));
 
 			//추후 결제시 필요할 수 있으니 주석으로 남겨둔다.
-			orderVO.setPay_method(map.get("pay_method"));
-			orderVO.setCard_com_name(map.get("card_com_name"));
-			orderVO.setCard_pay_month(map.get("card_pay_month"));
-			orderVO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));	
-			orderVO.setOrderer_hp(orderer_hp);
+			orderDTO.setPay_method(map.get("pay_method"));
+			orderDTO.setCard_com_name(map.get("card_com_name"));
+			orderDTO.setCard_pay_month(map.get("card_pay_month"));
+			orderDTO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));
+			orderDTO.setOrderer_hp(orderer_hp);
 			
-			myOrderList.set(i, orderVO);
+			myOrderList.set(i, orderDTO);
 		}
 		
 		

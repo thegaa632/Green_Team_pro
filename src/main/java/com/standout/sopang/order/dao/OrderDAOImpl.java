@@ -18,21 +18,17 @@ public class OrderDAOImpl implements OrderDAO {
 	//주문하기
 	public void insertNewOrder(List<OrderVO> myOrderList) throws DataAccessException{
 		//리턴된 주문번호와 함께 주문 table에 주문정보를 insert한다.
-		int order_id=selectOrderID();
-		for(int i=0; i<myOrderList.size();i++){
-			OrderVO orderVO =(OrderVO)myOrderList.get(i);
-			//주문번호 객체에 set
-			orderVO.setOrder_id(order_id);
-			sqlSession.insert("mapper.order.insertNewOrder",orderVO);
-		}
+
+			sqlSession.insert("mapper.order.insertNewOrder");
+
 	}	
 	
-	private int selectOrderID() throws DataAccessException{
+	public int selectOrderID() throws DataAccessException{
 		//주문번호 시퀀스를 생성하여 결과값을 반환한다.
 		int result = sqlSession.selectOne("mapper.order.selectOrderID");
 		return result;
 	}
-	
+
 	//주문완료시 장바구니에서 상품 제거
 	public void removeGoodsFromCart(List<OrderVO> myOrderList)throws DataAccessException{
 		for(int i=0; i<myOrderList.size();i++){

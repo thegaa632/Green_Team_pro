@@ -78,8 +78,6 @@ public class GoodsServiceImpl implements GoodsService {
 		dtoList =convertList.goodsConvertDTO(goodsList);
 		return dtoList;
 	}
-	
-	
 
 	//추천키워드
 	@Override
@@ -88,7 +86,6 @@ public class GoodsServiceImpl implements GoodsService {
 		return list;
 	}
 
-	
 	//검색
 	@Override
 	public List<GoodsDTO> searchGoods(String searchWord) throws Exception {
@@ -97,21 +94,17 @@ public class GoodsServiceImpl implements GoodsService {
 
 		return dtoList;
 	}
-	
 
 	//상품상세
 	public Map goodsDetail(String _goods_id) throws Exception {
 		Map goodsMap = new HashMap();
 		//상품상세정보 추출
 		GoodsVO goodsVO = goodsDAO.selectGoodsDetail(_goods_id);
-	  GoodsDTO	goodsDTO =modelMapper.map(goodsVO,GoodsDTO.class);
+		GoodsDTO goodsDTO =modelMapper.map(goodsVO,GoodsDTO.class);
 		goodsMap.put("goodsDTO", goodsDTO);
 
-
-		//imageFileDTO 따로?
 		//상품 상세이미지 추출
 		List<ImageFileVO> imageList = goodsDAO.selectGoodsDetailImage(_goods_id);
-
 		imageListDto =convertList.imgageConvertDTO(imageList);
 		goodsMap.put("imageList", imageListDto);
 
