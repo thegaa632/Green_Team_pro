@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xmlns:aop="http://www.springframework.org/schema/aop"
+	   xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+      http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
+	<aop:aspectj-autoproxy/>
+	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
+		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/scott"></property>
+		<property name="username" value="root"></property>
+		<property name="password" value="12341234"></property>
+		<property name="dataSourceProperties">
+			<props>
+				<prop key="cachePrepStmts">true</prop>
+				<prop key="prepStmtCacheSize">250</prop>
+				<prop key="prepStmtCacheSqlLimit">2048</prop>
+			</props>
+		</property>
+	</bean>
+	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
+		  destroy-method="close">
+		<constructor-arg ref="hikariConfig"/>
+	</bean>
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath:/mybatis/mappers/*.xml"></property>
+		<property name="configLocation" value="classpath:mybatis/models/modelConfig.xml"  />
+	</bean>
+	<!--   <bean id="propertyPlaceholderConfigurer"-->
+	<!--   class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">-->
+	<!--   <property name="locations">-->
+	<!--   <value>/WEB-INF/config/jdbc/jdbc.properties</value>-->
+	<!--   </property>-->
+	<!--   </bean>-->
+	<!--   -->
+	<!--   <bean id="dataSource"-->
+	<!--      class="org.apache.ibatis.datasource.pooled.PooledDataSource">-->
+	<!--      <property name="driver"-->
+	<!--         value="${mysql.driverClassName}" />-->
+	<!--      <property name="url" value="${mysql.url}" />-->
+	<!--      <property name="username" value="${mysql.username}" />-->
+	<!--      <property name="password" value="${mysql.password}" />-->
+	<!--   </bean>-->
+	<!--   <bean id ="sqlSessionFactory" class= "org.mybatis.spring.SqlSessionFactoryBean" >-->
+	<!--       <property name="dataSource" ref="dataSource" />-->
+	<!--      -->
+	<!--     <property name="configLocation" value="classpath:mybatis/models/modelConfig.xml"  /> -->
+	<!--     <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml" />-->
+	<!--   </bean >-->
+
+	<bean id ="sqlSession"
+		  class= "org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref= "sqlSessionFactory"></constructor-arg >
+	</bean >
+
+	<!--트랜잭션 매니  필요한 부분-->
+	<bean id="transactionManager"
+		  class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+</beans>
