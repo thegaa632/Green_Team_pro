@@ -67,16 +67,21 @@
 	<select id="selectCountInCart" resultType="String"
 		parameterType="cartVO">
 	    <![CDATA[
-		    select decode(count(*), 0, 'false', 'true') from t_shopping_cart
-			where goods_id=#{goods_id}
-			  and member_id=#{member_id} 
-    	]]>
+        SELECT CASE
+                   WHEN COUNT(*) = 0 THEN 'false'
+                   ELSE 'true'
+                   END AS result
+        FROM t_shopping_cart
+        WHERE goods_id = #{goods_id}
+          AND member_id = #{member_id}
+        ]]>
 	</select>
 
 	<!-- cart번호를 부여하기 위한 과정, 카트번호 최댓값에서 +1해 부여한다. -->
 	<select id="selectMaxCartId" resultType="int">
 	    <![CDATA[
-			select nvl(max(cart_id), 0) + 1 from t_shopping_cart 
+			SELECT IFNULL(MAX(cart_id), 0) + 1
+			FROM t_shopping_cart;
     	]]>
 	</select>
 	<!-- 장바구니 추가 -->
@@ -85,11 +90,13 @@
 		    	insert into t_shopping_cart(cart_id,
 		    	                           goods_id,
 		    	                           member_id,
-		    	                           cart_goods_qty)
+		    	                           cart_goods_qty,
+		    	                            creDate)
 		        				 values(#{cart_id},
     							        #{goods_id},
     							        #{member_id},
-    							        1)
+    							        1,
+		        				        now())
     	]]>
 	</insert>
 

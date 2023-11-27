@@ -15,7 +15,7 @@ public interface AdminGoodsDAO {
 
 	//상품추가
 	public int insertNewGoods(Map newGoodsMap) throws DataAccessException;
-	public void insertGoodsImageFile(List fileList)  throws DataAccessException;
+	public void insertGoodsImageFile(List<ImageFileVO> fileList)  throws DataAccessException;
 	
 	//상품삭제
 	public void deleteGoods(String goods_id) throws Exception;

@@ -12,6 +12,7 @@ import com.standout.sopang.member.vo.MemberVO;
 import com.standout.sopang.order.dto.OrderDTO;
 import com.standout.sopang.order.vo.OrderVO;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.internal.bytebuddy.asm.Advice;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -57,4 +58,13 @@ public class ConvertList {
                 .collect(Collectors.toList());
 
     }
+    //=== vo ================
+    public List<ImageFileVO> imageConvertVO(List<ImageFileDTO> imageFileList){
+
+        return  imageFileList.stream()
+                .map(image->modelMapper.map(image,ImageFileVO.class))
+                .collect(Collectors.toList());
+    }
+
+
 }

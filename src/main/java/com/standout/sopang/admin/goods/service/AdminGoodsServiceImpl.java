@@ -3,10 +3,12 @@ package com.standout.sopang.admin.goods.service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import com.standout.sopang.config.ConvertList;
 import com.standout.sopang.goods.dto.GoodsDTO;
 import com.standout.sopang.goods.dto.ImageFileDTO;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
@@ -23,6 +25,8 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	private AdminGoodsDAO adminGoodsDAO;
 	@Autowired
 	ConvertList convertList;
+	@Autowired
+	ModelMapper modelMapper;
 
 	
 	
@@ -47,7 +51,9 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 		//해당 goods_id값을 img에 대입해 insert한다.
 		ArrayList<ImageFileDTO> imageFileList = (ArrayList) newGoodsMap.get("imageFileList");
 		for (ImageFileDTO imageFileDTO : imageFileList) {imageFileDTO.setGoods_id(goods_id);}
-		adminGoodsDAO.insertGoodsImageFile(imageFileList);
+		List<ImageFileVO> imageListVO=convertList.imageConvertVO(imageFileList);
+
+		adminGoodsDAO.insertGoodsImageFile(imageListVO);
 		
 		return goods_id;
 	}
@@ -55,8 +61,11 @@ public class AdminGoodsServiceImpl implements AdminGoodsService {
 	
 	//상품추가 - 이미지
 	@Override
-	public void addNewGoodsImage(List imageFileList) throws Exception {
-		adminGoodsDAO.insertGoodsImageFile(imageFileList);
+	public void addNewGoodsImage(List<ImageFileDTO> imageFileList) throws Exception {
+
+		List<ImageFileVO> imageListVO=convertList.imageConvertVO(imageFileList);
+
+		adminGoodsDAO.insertGoodsImageFile(imageListVO);
 	}
 
 	

@@ -101,10 +101,10 @@
 
     <!-- 회원탈퇴 -->
     <delete id="deleteMember" parameterType="String">
-       <![CDATA[
+	    <![CDATA[
         delete from t_shopping_member
-        where member_id = #{member_id}
+		where member_id = #{member_id}
         ]]>
-   </delete>
+	</delete>
 
 </mapper>

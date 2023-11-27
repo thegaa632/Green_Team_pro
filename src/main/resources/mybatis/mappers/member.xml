@@ -11,7 +11,7 @@
 		<result property="member_pw" column="member_pw" />
 		<result property="hp1" column="hp1" />
 		<result property="zipcode" column="zipcode" />
-		<result property="address" column="maddress" />
+		<result property="address" column="address" />
 		<result property="subaddress" column="subaddress" />
 		<result property="sopang_money" column="sopang_money" />
 		<result property="joinDate" column="joinDate" />
