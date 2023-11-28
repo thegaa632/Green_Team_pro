@@ -12,7 +12,7 @@ public interface MemberDAO {
 	public MemberVO login(Map loginMap) throws DataAccessException;
 
 	//회원가입
-	public void insertNewMember(MemberVO memberVO) throws DataAccessException;
+	public void insertNewMember(MemberDTO memberDTO) throws DataAccessException;
 	
 	//아이디 중복확인
 	public String selectOverlappedID(String id) throws DataAccessException;

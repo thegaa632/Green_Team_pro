@@ -15,11 +15,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
 import com.standout.sopang.common.base.BaseController;
 import com.standout.sopang.member.service.MemberService;
-import com.standout.sopang.member.vo.MemberVO;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Log4j2
@@ -40,8 +38,8 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	@RequestMapping(value="/login" ,method = RequestMethod.POST)
 	public String login(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		memberDTO = memberService.login(loginMap);
-		
-		//memberVO가 존재할 경우
+		log.info("memberDTO : " + memberDTO);
+		//memberDTO가 존재할 경우
 		if (memberDTO != null && memberDTO.getMember_id() != null) {
 			HttpSession session = request.getSession();
 
@@ -69,7 +67,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	//회원가입
 	@Override
 	@RequestMapping(value="/join" ,method = RequestMethod.POST)
-	public ResponseEntity addMember(@ModelAttribute("memberVO") MemberVO _memberVO,
+	public ResponseEntity addMember(@ModelAttribute("memberDTO") MemberDTO _member,
 			                HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
@@ -80,7 +78,7 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		
 		try {
 			//회원가입을 try, addMember 성공시 안내문구와 함께  login페이지로 이동한다.
-		    memberService.addMember(_memberVO);
+		    memberService.addMember(_member);
 		    message  = "<script>";
 		    message +=" alert('sopang에 오신걸 환영합니다!');";
 		    message += " location.href='"+request.getContextPath()+"/member/login';";

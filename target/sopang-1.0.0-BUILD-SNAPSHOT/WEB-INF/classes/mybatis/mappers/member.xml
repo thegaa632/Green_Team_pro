@@ -34,11 +34,13 @@
     	insert into t_shopping_member(member_id,
 				 					 member_pw,
                                      member_name,
-                                     hp1)
+                                     hp1,
+    	                              joinDate)
 							 values(#{member_id},
 									#{member_pw},
 									#{member_name},
-                                    #{hp1})
+                                    #{hp1},
+							        now())
    ]]>
 	</insert>
 

@@ -10,7 +10,7 @@ public interface MemberService {
 	public MemberDTO login(Map  loginMap) throws Exception;
 	
 	//회원가입
-	public void addMember(MemberVO memberVO) throws Exception;
+	public void addMember(MemberDTO memberDTO) throws Exception;
 	
 	//아이디 중복확인
 	public String overlapped(String id) throws Exception;

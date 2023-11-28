@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.standout.sopang.member.dto.MemberDTO;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -20,7 +21,7 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 
 	//일반사용자인지, 관리자인지를 구문하기 위해 memberVO 빈을 사용한다.
 	@Autowired
-	private MemberVO memberVO;
+	private MemberDTO memberDTO;
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
@@ -29,8 +30,8 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 
 		try {
 			//사용자확인
-			memberVO=(MemberVO)session.getAttribute("memberInfo");
-			String  member_id=memberVO.getMember_id();
+			memberDTO=(MemberDTO) session.getAttribute("memberInfo");
+			String  member_id=memberDTO.getMember_id();
 
 			//공통, 카트갯수, 주문갯수, 소팡머니 출력
 			int cartCount = 0;

@@ -2,7 +2,6 @@ package com.standout.sopang.member.service;
 
 import java.util.Map;
 
-import com.standout.sopang.config.ConvertList;
 import com.standout.sopang.member.dto.MemberDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +10,6 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.standout.sopang.member.dao.MemberDAO;
-import com.standout.sopang.member.vo.MemberVO;
 
 @Service("memberService")
 @Transactional(propagation=Propagation.REQUIRED)
@@ -23,14 +21,15 @@ public class MemberServiceImpl implements MemberService {
 	
 	//로그인
 	@Override
-	public MemberDTO login(Map  loginMap) throws Exception{
+	public MemberDTO login(Map loginMap) throws Exception{
+
 		return modelMapper.map(memberDAO.login(loginMap),MemberDTO.class);
 	}
 	
 	//회원가입
 	@Override
-	public void addMember(MemberVO memberVO) throws Exception{
-		memberDAO.insertNewMember(memberVO);
+	public void addMember(MemberDTO memberDTO) throws Exception{
+		memberDAO.insertNewMember(memberDTO);
 	}
 	
 	//아이디 중복확인

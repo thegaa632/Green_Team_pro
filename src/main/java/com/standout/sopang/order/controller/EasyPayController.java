@@ -8,9 +8,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.standout.sopang.member.dto.MemberDTO;
 import com.standout.sopang.order.dto.OrderDTO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
@@ -19,34 +21,34 @@ import com.standout.sopang.member.vo.MemberVO;
 import com.standout.sopang.order.service.ApiService01;
 import com.standout.sopang.order.service.OrderService;
 import com.standout.sopang.order.vo.OrderVO;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 public class EasyPayController {
-	
+
 	@Autowired
 	private OrderService orderService;
 
 	@Autowired
 	private ApiService01 apiService01;
-	
+
 	//EasyPayPopup(RestController)는 view기능이 없어 Controller를 추가함.
-	@RequestMapping(value="/test/kakaoPay.do")
-	public ModelAndView kakaoPay(@RequestParam Map<String, String> map , HttpServletRequest request,
-			HttpServletResponse response) throws Exception{
-		
+	@RequestMapping(value="/test/kakaoPay")
+	public String kakaoPay(@RequestParam Map<String, String> map , HttpServletRequest request,Model model,
+						   HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception{
+
 		response.setContentType("text/html;charset=UTF-8");
-		
-		ModelAndView mav  = new ModelAndView();
+
 		System.out.println(map.toString());
-		
+
 		//주문정보를 가져온다.
 		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("orderer");
-		String member_id = memberVO.getMember_id();
-		String orderer_name = memberVO.getMember_name();
-		String orderer_hp = memberVO.getHp1();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("orderer");
+		String member_id = memberDTO.getMember_id();
+		String orderer_name = memberDTO.getMember_name();
+		String orderer_hp = memberDTO.getHp1();
 		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
-		
+
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
@@ -61,11 +63,11 @@ public class EasyPayController {
 			orderDTO.setCard_pay_month(map.get("card_pay_month"));
 			orderDTO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));
 			orderDTO.setOrderer_hp(orderer_hp);
-			
+
 			myOrderList.set(i, orderDTO);
 		}
-		
-		
+
+
 		//인증데이터로 결제요청하기
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		String res_cd = (String) map.get("res_cd");
@@ -75,51 +77,51 @@ public class EasyPayController {
 		String ordr_idxx = (String) map.get("ordr_idxx");
 		String merchantId = "himedia";
 		String url = "https://api.testpayup.co.kr/ep/api/kakao/"+merchantId+"/pay";
-		
+
 		returnMap = apiService01.restApi(map, url);
-		
-		
-		
-//		String responseCode = "0000";
-		
+
+
+
+//      String responseCode = "0000";
+
 		if("0000".equals(res_cd)) {
 			//수령자정보, 주문정보를 주문테이블에 반영한다.
 			orderService.addNewOrder(myOrderList);
 			System.out.println(map.get("res_cd"));
 			System.out.println(map.get("res_msg"));
-			mav.setViewName("redirect:/mypage/listMyOrderHistory.do");	
+
 		}else {
-			mav.addObject("responseMsg", "카카오 인증실패");
-			mav.setViewName("/order/payFail");	
+			model.addAttribute("responseMsg", "카카오 인증실패");
+			return "/order/payFail";
 		}
-		
-		
-		
-		return mav;
+
+
+
+		return "redirect:/mypage/listMyOrderHistory";
 	}
-	
-	
-	
-	
-	
-	
-	@RequestMapping(value="/test/naverPay.do")
-	public ModelAndView naverPay(@RequestParam Map<String, String> map , HttpServletRequest request,
-			HttpServletResponse response) throws Exception{
-		
+
+
+
+
+
+
+	@RequestMapping(value="/test/naverPay")
+	public String naverPay(@RequestParam Map<String, String> map , HttpServletRequest request,
+						   HttpServletResponse response, Model model,RedirectAttributes redirectAttributes) throws Exception{
+
 		response.setContentType("text/html;charset=UTF-8");
-		
+
 		ModelAndView mav  = new ModelAndView();
 		System.out.println(map.toString());
-		
+
 		//주문정보를 가져온다.
 		HttpSession session = request.getSession();
-		MemberVO memberVO = (MemberVO) session.getAttribute("orderer");
-		String member_id = memberVO.getMember_id();
-		String orderer_name = memberVO.getMember_name();
-		String orderer_hp = memberVO.getHp1();
+		MemberDTO memberDTO = (MemberDTO) session.getAttribute("orderer");
+		String member_id = memberDTO.getMember_id();
+		String orderer_name = memberDTO.getMember_name();
+		String orderer_hp = memberDTO.getHp1();
 		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
-		
+
 		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
@@ -134,11 +136,11 @@ public class EasyPayController {
 			orderDTO.setCard_pay_month(map.get("card_pay_month"));
 			orderDTO.setPay_orderer_hp_num(map.get("pay_orderer_hp_num"));
 			orderDTO.setOrderer_hp(orderer_hp);
-			
+
 			myOrderList.set(i, orderDTO);
 		}
-		
-		
+
+
 		//인증데이터로 결제요청하기
 		Map<String, Object> returnMap = new HashMap<String, Object>();
 		String res_cd = (String) map.get("res_cd");
@@ -148,27 +150,23 @@ public class EasyPayController {
 		String ordr_idxx = (String) map.get("ordr_idxx");
 		String merchantId = "himedia";
 		String url = "https://api.testpayup.co.kr/ep/api/naver/"+merchantId+"/pay";
-		
+
 		System.out.println(map.toString());
 		returnMap = apiService01.restApi(map, url);
-		
-		
+
+
 		System.out.println(returnMap.toString());
 		String responseCode = (String) returnMap.get("responseCode");
-		
+
 		if("0000".equals(responseCode)) {
 			//수령자정보, 주문정보를 주문테이블에 반영한다.
 			orderService.addNewOrder(myOrderList);
 			System.out.println(map.get("res_cd"));
 			System.out.println(map.get("res_msg"));
-			mav.setViewName("redirect:/mypage/listMyOrderHistory.do");	
 		}else {
-			mav.addObject("responseMsg", "네이버 인증실패");
-			mav.setViewName("/order/payFail");	
+			model.addAttribute("responseMsg", "네이버 인증실패");
 		}
-		
-		
-		
-		return mav;
+
+		return "redirect:/mypage/listMyOrderHistory";
 	}
 }

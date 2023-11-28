@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.standout.sopang.member.dto.MemberDTO;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -20,8 +21,8 @@ public interface MemberController {
 							  HttpServletResponse response, Model model) throws Exception;
 
 	//회원가입
-	public ResponseEntity addMember(@ModelAttribute("member") MemberVO member, HttpServletRequest request,
-			HttpServletResponse response) throws Exception;
+	public ResponseEntity addMember(@ModelAttribute("member") MemberDTO member, HttpServletRequest request,
+									HttpServletResponse response) throws Exception;
 
 	//아이디 중복확인
 	public ResponseEntity overlapped(@RequestParam("id") String id, HttpServletRequest request,
