@@ -475,7 +475,7 @@ function getContextPath() {
 //상품삭제
 function deleteGoods(goods_id){
 	var url = getContextPath();
-	url += "/admin/goods/deleteGoods.do?goods_id="+goods_id;
+	url += "/goods/deleteGoods.do?goods_id="+goods_id;
 	//confirm단계를 거치고 사용자가 취소를 누를경우 삭제를 취소한다.
 	 if (!confirm("삭제하시겠습니까?")) {
 	    } else {

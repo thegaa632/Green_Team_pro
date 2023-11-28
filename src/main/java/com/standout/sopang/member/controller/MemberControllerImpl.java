@@ -44,7 +44,6 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 		//memberVO가 존재할 경우
 		if (memberDTO != null && memberDTO.getMember_id() != null) {
 			HttpSession session = request.getSession();
-			session = request.getSession();
 
 			
 			//로그인 여부 isLogOn와 회원정보 memberInfo를 세션에 저장한다.

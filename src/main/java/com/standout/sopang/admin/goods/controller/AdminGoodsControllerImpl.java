@@ -50,7 +50,9 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 
 		//기간 초기화
 		String beginDate = null, endDate = null;
-		
+
+
+
 		//fixedSearchPeriod값 가공해 dateMap에 put
 		String[] tempDate = calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate = tempDate[0];

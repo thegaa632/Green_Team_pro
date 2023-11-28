@@ -28,10 +28,13 @@ import com.standout.sopang.member.vo.MemberVO;
 @Controller("adminMemberController")
 @RequestMapping(value="/admin/member")
 public class AdminMemberControllerImpl extends BaseController  implements AdminMemberController{
+
 	@Autowired
 	private AdminMemberService adminMemberService;
 
 
+	//회원관리
+	@RequestMapping(value="/adminMemberMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
 	@Override
 	public String adminGoodsMain(Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		//fixedSearchPeriod값을 받아 저장

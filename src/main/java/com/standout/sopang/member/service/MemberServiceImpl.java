@@ -2,6 +2,7 @@ package com.standout.sopang.member.service;
 
 import java.util.Map;
 
+import com.standout.sopang.config.ConvertList;
 import com.standout.sopang.member.dto.MemberDTO;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,10 +24,7 @@ public class MemberServiceImpl implements MemberService {
 	//로그인
 	@Override
 	public MemberDTO login(Map  loginMap) throws Exception{
-		MemberDTO memberDTO=modelMapper.map(loginMap,MemberDTO.class);
-		memberDAO.login(loginMap);
-		return memberDTO;
-
+		return modelMapper.map(memberDAO.login(loginMap),MemberDTO.class);
 	}
 	
 	//회원가입

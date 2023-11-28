@@ -54,7 +54,10 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 		
 		//기간 초기화
 		String beginDate=null,endDate=null;
-		
+
+		//페이징 고정 값
+		int startRow = 1, pageSize = 10;
+
 		//fixedSearchPeriod값 가공해 dateMap에 put
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
@@ -66,6 +69,9 @@ public class AdminOrderControllerImpl extends BaseController  implements AdminOr
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
+		condMap.put("startRow", startRow);
+		condMap.put("pageSize", pageSize);
+
 		List<OrderDTO> newOrderList=adminOrderService.listNewOrder(condMap);
 		
 		//리턴된 배송리스트 member_list를  mav의 member_list에 부여
