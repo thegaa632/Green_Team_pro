@@ -12,6 +12,8 @@ import javax.servlet.http.HttpSession;
 import com.standout.sopang.goods.dto.GoodsDTO;
 import com.standout.sopang.member.dto.MemberDTO;
 import com.standout.sopang.order.dto.OrderDTO;
+import lombok.extern.java.Log;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,6 +27,7 @@ import com.standout.sopang.order.service.ApiService01;
 import com.standout.sopang.order.service.OrderService;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Log4j2
 @Controller("orderController")
 @RequestMapping(value = "/order")
 public class OrderControllerImpl extends BaseController implements OrderController {
@@ -35,7 +38,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	@Autowired
 	private ApiService01 apiService01;
 
-	// °³º°ÁÖ¹®
+	// ê°œë³„ì£¼ë¬¸
 	@RequestMapping(value = "/orderEachGoods", method = RequestMethod.POST)
 	public String orderEachGoods(@ModelAttribute("orderDTO") OrderDTO _orderDTO, HttpServletRequest request,
 								 HttpServletResponse response, Model model, RedirectAttributes redirectAttributes) throws Exception {
@@ -44,17 +47,17 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		HttpSession session = request.getSession();
 		session = request.getSession();
 
-		// ·Î±×ÀÎ ¿©ºÎ Ã¼Å©
+		// ë¡œê·¸ì¸ ì—¬ë¶€ ì²´í¬
 		Boolean isLogOn = (Boolean) session.getAttribute("isLogOn");
 		String action = (String) session.getAttribute("action");
 
-		// ÀÌÀü¿¡ ·Î±×ÀÎ »óÅÂÀÎ °æ¿ì´Â ÁÖ¹®°úÁ¤ ÁøÇà
+		// ì´ì „ì— ë¡œê·¸ì¸ ìƒíƒœì¸ ê²½ìš°ëŠ” ì£¼ë¬¸ê³¼ì • ì§„í–‰
 		if (isLogOn == null || isLogOn == false) {
 			session.setAttribute("orderInfo", _orderDTO);
 			session.setAttribute("action", "/order/orderEachGoods.do");
 			return "redirect:/member/login";
 		}
-		// ·Î±×¾Æ¿ô »óÅÂÀÎ °æ¿ì ·Î±×ÀÎ È­¸éÀ¸·Î ÀÌµ¿
+		// ë¡œê·¸ì•„ì›ƒ ìƒíƒœì¸ ê²½ìš° ë¡œê·¸ì¸ í™”ë©´ìœ¼ë¡œ ì´ë™
 		else {
 			if (action != null && action.equals("/order/orderEachGoods.do")) {
 				orderDTO = (OrderDTO) session.getAttribute("orderInfo");
@@ -64,12 +67,12 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			}
 		}
 
-		// myOrderList¿¡ ¼±ÅÃÇÑ »óÇ°Á¤º¸ orderDTO¸¦ ¸®´ÙÀÌ·ºÆ®.
+		// myOrderListì— ì„ íƒí•œ ìƒí’ˆì •ë³´ orderDTOë¥¼ ë¦¬ë‹¤ì´ë ‰íŠ¸.
 		List myOrderList = new ArrayList<OrderDTO>();
 		myOrderList.add(orderDTO);
 		session.setAttribute("myOrderList", myOrderList);
 
-		// + È¸¿øÁ¤º¸¿Í ÇÔ²² ¸®´ÙÀÌ·ºÆ®.
+		// + íšŒì›ì •ë³´ì™€ í•¨ê»˜ ë¦¬ë‹¤ì´ë ‰íŠ¸.
 		MemberDTO memberInfo = (MemberDTO) session.getAttribute("memberInfo");
 		session.setAttribute("orderer", memberInfo);
 
@@ -77,47 +80,47 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 	}
 
 
-	// ´ÙÁßÁÖ¹®
+	// ë‹¤ì¤‘ì£¼ë¬¸
 	@RequestMapping(value = "/orderAllCartGoods", method = RequestMethod.POST)
 	public String orderAllCartGoods(@RequestParam("cart_goods_qty") String[] cart_goods_qty,
 									HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
 		List myOrderList = new ArrayList<OrderDTO>();
 
-		//Àå¹Ù±¸´Ï ¸®½ºÆ®¸¦ ¹Ş¾Æ ÀúÀå
+		//ì¥ë°”êµ¬ë‹ˆ ë¦¬ìŠ¤íŠ¸ë¥¼ ë°›ì•„ ì €ì¥
 		Map cartMap = (Map) session.getAttribute("cartMap");
 		List<GoodsDTO> myGoodsList = (List<GoodsDTO>) cartMap.get("myGoodsList");
 
-		//È¸¿øÁ¤º¸¸¦ ¹Ş¾Æ ÀúÀå
+		//íšŒì›ì •ë³´ë¥¼ ë°›ì•„ ì €ì¥
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberInfo");
 
-		//»óÇ°:¼ö·®À¸·Î input¿¡ ÀúÀåÇØ ³Ñ°ä´ø Á¤º¸¸¦ ÀÌ¿ëÇÒ °ÍÀÓ.
-		//cart_goods_qty, ¹ŞÀº inputÀÇ ¼ö¸¸Å­ for¹®.
+		//ìƒí’ˆ:ìˆ˜ëŸ‰ìœ¼ë¡œ inputì— ì €ì¥í•´ ë„˜ê²»ë˜ ì •ë³´ë¥¼ ì´ìš©í•  ê²ƒì„.
+		//cart_goods_qty, ë°›ì€ inputì˜ ìˆ˜ë§Œí¼ forë¬¸.
 		for (int i = 0; i < cart_goods_qty.length; i++) {
-			//»óÇ°:¼ö·®À» ³ª´² È®ÀÎ.
+			//ìƒí’ˆ:ìˆ˜ëŸ‰ì„ ë‚˜ëˆ  í™•ì¸.
 			String[] cart_goods = cart_goods_qty[i].split(":");
 			for (int j = 0; j < myGoodsList.size(); j++) {
-				//»óÇ° °´Ã¼ get
+				//ìƒí’ˆ ê°ì²´ get
 				GoodsDTO goodsDTO = myGoodsList.get(j);
-				//»óÇ° id get
+				//ìƒí’ˆ id get
 				int goods_id = goodsDTO.getGoods_id();
-				//goodsid¿Í Àü´Ş¹ŞÀº »óÇ° id°ªÀÌ °°À»¶§
+				//goodsidì™€ ì „ë‹¬ë°›ì€ ìƒí’ˆ idê°’ì´ ê°™ì„ë•Œ
 				if (goods_id == Integer.parseInt(cart_goods[0])) {
-					//ÁÖ¹®°´Ã¼¸¦ »ı¼ºÇÑ´Ù.
+					//ì£¼ë¬¸ê°ì²´ë¥¼ ìƒì„±í•œë‹¤.
 					OrderDTO _orderDTO = new OrderDTO();
-					//ÇØ´ç»óÇ° titleÀúÀå
+					//í•´ë‹¹ìƒí’ˆ titleì €ì¥
 					String goods_title = goodsDTO.getGoods_title();
-					//ÇØ´ç»óÇ° ¼ö·® ÀúÀå
+					//í•´ë‹¹ìƒí’ˆ ìˆ˜ëŸ‰ ì €ì¥
 					int goods_sales_price = goodsDTO.getGoods_sales_price();
-					//ÇØ´ç»óÇ° fileNameµµ ÀúÀåÇØ
+					//í•´ë‹¹ìƒí’ˆ fileNameë„ ì €ì¥í•´
 					String goods_fileName = goodsDTO.getGoods_fileName();
-					//ÁÖ¹®°´Ã¼¿¡ set
+					//ì£¼ë¬¸ê°ì²´ì— set
 					_orderDTO.setGoods_id(goods_id);
 					_orderDTO.setGoods_title(goods_title);
 					_orderDTO.setGoods_sales_price(goods_sales_price);
 					_orderDTO.setGoods_fileName(goods_fileName);
 					_orderDTO.setOrder_goods_qty(Integer.parseInt(cart_goods[1]));
-					//¿Ï¼ºµÈ ÁÖ¹®°´Ã¼´Â myOrderList¿¡ ½×¾Æ°£´Ù.
+					//ì™„ì„±ëœ ì£¼ë¬¸ê°ì²´ëŠ” myOrderListì— ìŒ“ì•„ê°„ë‹¤.
 					myOrderList.add(_orderDTO);
 					break;
 				}
@@ -135,23 +138,25 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 								  Model model, RedirectAttributes redirectAttributes, HttpServletResponse response)
 			throws Exception {
 
-		//ÁÖ¹®ÀÚ Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		//ì£¼ë¬¸ì ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("orderer");
+		MemberDTO memberDTO_at = (MemberDTO) session.getAttribute("order_info");
+		log.info("memberDTO_at : " + memberDTO_at);
 		String member_id = memberDTO.getMember_id();
 		String orderer_name = memberDTO.getMember_name();
 		String orderer_hp = memberDTO.getHp1();
 
-		//ÁÖ¹®Á¤º¸¸¦ °¡Á®¿Â´Ù.
+		//ì£¼ë¬¸ì •ë³´ë¥¼ ê°€ì ¸ì˜¨ë‹¤.
 		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 
-		//°áÁ¦¼º°ø¿©ºÎ
+		//ê²°ì œì„±ê³µì—¬ë¶€
 		String responseCode = "";
 		String responseMsg = "";
 		String itemName = "";
 		String orderNumber = "";
 		int amount = 0;
-		//ÁÖ¹®Á¤º¸¸¦ for·Î µ¹¸®¸ç myOrderList¿¡ ¼ö·ÉÀÚÁ¤º¸¸¦ ´ã´Â´Ù.
+		//ì£¼ë¬¸ì •ë³´ë¥¼ forë¡œ ëŒë¦¬ë©° myOrderListì— ìˆ˜ë ¹ìì •ë³´ë¥¼ ë‹´ëŠ”ë‹¤.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
 			orderDTO.setMember_id(member_id);
@@ -159,7 +164,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderDTO.setReceiver_hp1(receiverMap.get("receiver_hp1"));
 			orderDTO.setDelivery_address(receiverMap.get("delivery_address"));
 
-			//ÃßÈÄ °áÁ¦½Ã ÇÊ¿äÇÒ ¼ö ÀÖÀ¸´Ï ÁÖ¼®À¸·Î ³²°ÜµĞ´Ù.
+			//ì¶”í›„ ê²°ì œì‹œ í•„ìš”í•  ìˆ˜ ìˆìœ¼ë‹ˆ ì£¼ì„ìœ¼ë¡œ ë‚¨ê²¨ë‘”ë‹¤.
 			orderDTO.setPay_method(receiverMap.get("pay_method"));
 			orderDTO.setCard_com_name(receiverMap.get("card_com_name"));
 			orderDTO.setCard_pay_month(receiverMap.get("card_pay_month"));
@@ -168,11 +173,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 
 
-			//payup form Ãß°¡
+			//payup form ì¶”ê°€
 			if(myOrderList.size() == 1) {
 				itemName = orderDTO.getGoods_title();
 			}else if(myOrderList.size() > 1){
-				itemName = orderDTO.getGoods_title() +" ¿Ü " + i + "°Ç";
+				itemName = orderDTO.getGoods_title() +" ì™¸ " + i + "ê±´";
 			}
 			orderNumber += String.valueOf(orderDTO.getOrder_seq_num());
 			amount += orderDTO.getGoods_sales_price();
@@ -212,11 +217,11 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		map.put("signature", signature);
 		map.put("timestamp", timestamp);
 
-		System.out.println("º¸³»´Â°ª = " + map.toString());
+		System.out.println("ë³´ë‚´ëŠ”ê°’ = " + map.toString());
 		returnMap = apiService01.restApi(map, url);
-		System.out.println("dbÈ®ÀÎ"+ returnMap.toString());
+		System.out.println("dbí™•ì¸"+ returnMap.toString());
 
-		//ÆäÀÌ¾÷ °Å·¡¹øÈ£
+		//í˜ì´ì—… ê±°ë˜ë²ˆí˜¸
 		String transactionId = (String) returnMap.get("transactionId");
 
 		responseCode = (String) returnMap.get("responseCode");
@@ -224,26 +229,26 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 
 		if("0000".equals(responseCode)) {
-			System.out.println("¼º°øÇß½À´Ï´Ù.");
+			System.out.println("ì„±ê³µí–ˆìŠµë‹ˆë‹¤.");
 
-			//¼ö·ÉÀÚÁ¤º¸, ÁÖ¹®Á¤º¸¸¦ ÁÖ¹®Å×ÀÌºí¿¡ ¹İ¿µÇÑ´Ù.
+			//ìˆ˜ë ¹ìì •ë³´, ì£¼ë¬¸ì •ë³´ë¥¼ ì£¼ë¬¸í…Œì´ë¸”ì— ë°˜ì˜í•œë‹¤.
 			orderService.addNewOrder(myOrderList);
 			session.setAttribute("returnMap", returnMap);
 
-			//¿Ï·á ÈÄ listMyOrderHistory·Î ¸®ÅÏ.
+			//ì™„ë£Œ í›„ listMyOrderHistoryë¡œ ë¦¬í„´.
 			return "redirect:/mypage/listMyOrderHistory.do";
 		}else {
-			System.out.println("½ÇÆĞÇß½À´Ï´Ù.");
+			System.out.println("ì‹¤íŒ¨í–ˆìŠµë‹ˆë‹¤.");
 
 			model.addAttribute("responseMsg", responseMsg);
-			//½ÇÆĞ½Ã ´Ù½Ã ÁÖ¹®ÆäÀÌÁö·Î ÀÌµ¿
+			//ì‹¤íŒ¨ì‹œ ë‹¤ì‹œ ì£¼ë¬¸í˜ì´ì§€ë¡œ ì´ë™
 			return "/order/payFail";
 		}
 	}
 
 
 
-	//°áÁ¦½ÇÆĞ
+	//ê²°ì œì‹¤íŒ¨
 	@Override
 	@RequestMapping(value="/payFail",method = RequestMethod.POST)
 	public String payFail(HttpServletRequest request, HttpServletResponse response) throws Exception {

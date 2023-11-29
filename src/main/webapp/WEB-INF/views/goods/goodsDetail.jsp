@@ -5,7 +5,7 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <c:set var="contextPath" value="${pageContext.request.contextPath}" />
-<c:set var="goods" value="${goodsMap.goodsVO}" />
+<c:set var="goods" value="${goodsMap.goodsDTO}" />
 <c:set var="imageList" value="${goodsMap.imageList }" />
 
 

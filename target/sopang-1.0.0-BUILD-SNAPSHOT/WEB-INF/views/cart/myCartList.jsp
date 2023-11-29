@@ -77,6 +77,9 @@ function fn_order_all_cart_goods(){
 	var cartGood=document.getElementsByClassName("cartGood");
 	var length=document.getElementsByClassName("cartGood").length;
 	let checkLen = 0;
+	console.log("length : "+length);
+	console.log("order_goods_id: " +order_goods_id);
+	console.log("order_goods_qty: " +order_goods_qty);
 	if(length>1){
 		//전체 체크박스를 돌려 체크됬을때만 걸러낸다.
 		for(var i=0; i<length;i++){
@@ -85,12 +88,14 @@ function fn_order_all_cart_goods(){
 				console.log(checkLen);
 				order_goods_id=checked_goods[i].value;
 				order_goods_qty=cart_goods_qty[i].value;
+				console.log("order_goods_id: " +order_goods_id);
+				console.log("order_goods_qty: " +order_goods_qty);
 				//console.log(order_goods_id+":"+order_goods_qty);
 				//각 상품의 정보를 해당 숨겨진 hidden input에 넣어 submit
 				cart_goods_qty[i].value=order_goods_id+":"+order_goods_qty;
 			}
 		}	
-	}else if(length=1){//선택된 상품이 하나일때는 분기처리한다.
+	}else if(length == 1){//선택된 상품이 하나일때는 분기처리한다.
 		if(cartGood[0].checked){
 			checkLen++;
 			order_goods_id=checked_goods.value;

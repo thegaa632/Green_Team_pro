@@ -14,17 +14,17 @@ import com.standout.sopang.goods.vo.ImageFileVO;
 import com.standout.sopang.order.vo.OrderVO;
 
 public interface AdminGoodsService {
-	// »óÇ°°ü¸®
+	// ìƒí’ˆê´€ë¦¬
 	public List<GoodsDTO> listNewGoods(Map condMap) throws Exception;
 
-	//»óÇ°Ãß°¡
+	//ìƒí’ˆì¶”ê°€
 	public int addNewGoods(Map newGoodsMap) throws Exception;
 	public void addNewGoodsImage(List<ImageFileDTO> imageFileList) throws Exception;
 
-	//»óÇ°»èÁ¦
+	//ìƒí’ˆì‚­ì œ
 	public void deleteGoods(String goods_id) throws Exception;
 
-	//»óÇ°¼öÁ¤
+	//ìƒí’ˆìˆ˜ì •
 	public void modifyGoods(String goods_id, Map newGoodsMap) throws Exception;
 
 }

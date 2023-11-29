@@ -37,31 +37,31 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	@Autowired
 	private MemberDTO memberDTO;
 	
-	//ÁÖ¹®¸ñ·Ï
+	//ì£¼ë¬¸ëª©ë¡
 	@Override
 	@RequestMapping(value="/listMyOrderHistory" ,method = RequestMethod.GET)
 	public String listMyOrderHistory(@RequestParam Map<String, String> dateMap, Model model, RedirectAttributes redirectAttributes,
 										   HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		HttpSession session=request.getSession();
 
-		//memberInfoÀÇ member_id get
+		//memberInfoì˜ member_id get
 		memberDTO=(MemberDTO)session.getAttribute("memberInfo");
 			if(memberDTO != null) {
 			String  member_id=memberDTO.getMember_id();
 
-			//Á¶È¸±â°£ fixedSearchPeriod get
+			//ì¡°íšŒê¸°ê°„ fixedSearchPeriod get
 			String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
-			//Á¶È¸ ±â°£ ÃÊ±âÈ­
+			//ì¡°íšŒ ê¸°ê°„ ì´ˆê¸°í™”
 			String beginDate=null,endDate=null;
 			String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 			beginDate=tempDate[0];
 			endDate=tempDate[1];
-			//Á¶È¸±â°£°ú member_id¸¦ dateMap¿¡ putÇØ Á¶È¸
+			//ì¡°íšŒê¸°ê°„ê³¼ member_idë¥¼ dateMapì— putí•´ ì¡°íšŒ
 			dateMap.put("beginDate", beginDate);
 			dateMap.put("endDate", endDate);
 			dateMap.put("member_id", member_id);
 			List<OrderDTO> myOrderHistList=myPageService.listMyOrderHistory(dateMap);
-			//°Ë»öÀÏÀÚ¸¦ ³â,¿ù,ÀÏ·Î ºĞ¸®ÇØ¼­ È­¸é¿¡ Àü´Ş
+			//ê²€ìƒ‰ì¼ìë¥¼ ë…„,ì›”,ì¼ë¡œ ë¶„ë¦¬í•´ì„œ í™”ë©´ì— ì „ë‹¬
 			String beginDate1[]=beginDate.split("-");
 			String endDate1[]=endDate.split("-");
 
@@ -81,13 +81,13 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	}
 	
 	
-	//ÁÖ¹®Ãë¼Ò
+	//ì£¼ë¬¸ì·¨ì†Œ
 	@Override
 	@RequestMapping(value="/cancelMyOrder" ,method = RequestMethod.POST)
 	public String cancelMyOrder(@RequestParam("order_id")  String order_id,Model model,RedirectAttributes redirectAttributes,
 			                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
 		ModelAndView mav = new ModelAndView();
-		//ÁÖ¹® id order_id·Î db»èÁ¦ ÈÄ cancel_order message ¸®ÅÏ
+		//ì£¼ë¬¸ id order_idë¡œ dbì‚­ì œ í›„ cancel_order message ë¦¬í„´
 		myPageService.cancelOrder(order_id);
 		model.addAttribute("message", "cancel_order");
 		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
@@ -98,47 +98,47 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	@Override
 	@RequestMapping(value="/returnMyOrder" ,method = RequestMethod.POST)
 	public String returnMyOrder(String order_id, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//ÁÖ¹® id order_id·Î db»èÁ¦ ÈÄ returning_goods message ¸®ÅÏ
+		//ì£¼ë¬¸ id order_idë¡œ dbì‚­ì œ í›„ returning_goods message ë¦¬í„´
 		myPageService.returnOrder(order_id);
 		model.addAttribute("message", "returning_goods");
 		return "redirect:/mypage/listMyOrderHistory.do";
 	}
-	//¹İÇ°
+	//ë°˜í’ˆ
 //	@Override
 //	@RequestMapping(value="/returnMyOrder" ,method = RequestMethod.POST)
 //	public String returnMyOrder(@RequestParam("order_id")  String order_id,
 //								RedirectAttributes redirectAttributes,Model model ,HttpServletRequest request, HttpServletResponse response)  throws Exception {
-//		//ÁÖ¹® id order_id·Î db»èÁ¦ ÈÄ returning_goods message ¸®ÅÏ
+//		//ì£¼ë¬¸ id order_idë¡œ dbì‚­ì œ í›„ returning_goods message ë¦¬í„´
 //		myPageService.returnOrder(order_id);
 //		model.addAttribute("message", "returning_goods");
 //		return "redirect:/mypage/listMyOrderHistory.do";
 //	}
 	
 	
-	//±³È¯
+	//êµí™˜
 
 	@Override
 	@RequestMapping(value="/exchangeMyOrder" ,method = RequestMethod.POST)
 	public String exchangeMyOrder(String order_id, Model model, RedirectAttributes redirectAttributes, HttpServletRequest request, HttpServletResponse response) throws Exception {
-		//ÁÖ¹® id order_id·Î db»èÁ¦ ÈÄ exchange_goods message ¸®ÅÏ
+		//ì£¼ë¬¸ id order_idë¡œ dbì‚­ì œ í›„ exchange_goods message ë¦¬í„´
 		myPageService.exchangeOrder(order_id);
 		model.addAttribute("message", "exchange_goods");
 		return "redirect:/mypage/listMyOrderHistory";
 	}
 
 	
-	//³»Á¤º¸
+	//ë‚´ì •ë³´
 
 	@Override
 	@RequestMapping(value="/myDetailInfo" ,method = RequestMethod.GET)
 	public String myDetailInfo(HttpServletRequest request, Model model, HttpServletResponse response) throws Exception {
-		//´Ü¼øÈ÷ ÆäÀÌÁö¸¸ ÀÌµ¿, myDetailInfo
+		//ë‹¨ìˆœíˆ í˜ì´ì§€ë§Œ ì´ë™, myDetailInfo
 		return "/mypage/myDetailInfo";
 	}
 
 	
 	
-	//³» Á¤º¸ ¼öÁ¤
+	//ë‚´ ì •ë³´ ìˆ˜ì •
 	@Override
 	@RequestMapping(value="/modifyMyInfo" ,method = RequestMethod.POST)
 	public ResponseEntity modifyMyInfo(
@@ -154,7 +154,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		memberDTO=(MemberDTO)session.getAttribute("memberInfo");
 		String  member_id=memberDTO.getMember_id();
 		
-		//¹Ş¾Æ¿Â Á¤º¸ memberMap¿¡ put
+		//ë°›ì•„ì˜¨ ì •ë³´ memberMapì— put
 		memberMap.put("member_pw",member_pw);
 		memberMap.put("hp1",hp1);
 		memberMap.put("zipcode",zipcode);
@@ -162,10 +162,10 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		memberMap.put("subaddress",subaddress);
 		memberMap.put("member_id", member_id);
 		
-		//memberMapÀ» °¡Áö°í db¼öÁ¤
+		//memberMapì„ ê°€ì§€ê³  dbìˆ˜ì •
 		memberDTO=(MemberDTO)myPageService.modifyMyInfo(memberMap);
 		
-		//¼öÁ¤µÈ È¸¿ø Á¤º¸¸¦ ´Ù½Ã ¼¼¼Ç¿¡ ÀúÀåÇÑ´Ù.
+		//ìˆ˜ì •ëœ íšŒì› ì •ë³´ë¥¼ ë‹¤ì‹œ ì„¸ì…˜ì— ì €ì¥í•œë‹¤.
 		session.removeAttribute("memberInfo");
 		session.setAttribute("memberInfo", memberDTO);
 		
@@ -173,26 +173,26 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		
-		//¿Ï·áÈÄ message mod_success ¸®ÅÏ
+		//ì™„ë£Œí›„ message mod_success ë¦¬í„´
 		message  = "mod_success";
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}	
 	
 	
-	//È¸¿øÅ»Åğ
+	//íšŒì›íƒˆí‡´
 	@Override
 	@RequestMapping(value="/deleteMember" ,method = RequestMethod.POST)
 	public ResponseEntity deleteMember(@RequestParam("member_id")  String member_id, HttpServletRequest request, HttpServletResponse response)  throws Exception{
 		
-		//@RequestParam¹ŞÀº member_id¸¦ db¿¡¼­ »èÁ¦
+		//@RequestParamë°›ì€ member_idë¥¼ dbì—ì„œ ì‚­ì œ
 		myPageService.deleteMember(member_id);
 		
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		
-		//¿Ï·á ÈÄ  message delete_success ¸®ÅÏ
+		//ì™„ë£Œ í›„  message delete_success ë¦¬í„´
 		message  = "delete_success";
 		resEntity =new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;

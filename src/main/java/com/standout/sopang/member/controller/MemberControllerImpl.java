@@ -33,25 +33,25 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	public String login(){
 		return "/member/login";
 	}
-	//·Î±×ÀÎ
+	//ë¡œê·¸ì¸
 	@Override
 	@RequestMapping(value="/login" ,method = RequestMethod.POST)
 	public String login(@RequestParam Map<String, String> loginMap, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		memberDTO = memberService.login(loginMap);
 		log.info("memberDTO : " + memberDTO);
-		//memberDTO°¡ Á¸ÀçÇÒ °æ¿ì
+		//memberDTOê°€ ì¡´ì¬í•  ê²½ìš°
 		if (memberDTO != null && memberDTO.getMember_id() != null) {
 			HttpSession session = request.getSession();
 
-			
-			//·Î±×ÀÎ ¿©ºÎ isLogOn¿Í È¸¿øÁ¤º¸ memberInfo¸¦ ¼¼¼Ç¿¡ ÀúÀåÇÑ´Ù.
+
+			//ë¡œê·¸ì¸ ì—¬ë¶€ isLogOnì™€ íšŒì›ì •ë³´ memberInfoë¥¼ ì„¸ì…˜ì— ì €ì¥í•œë‹¤.
 			session.setAttribute("isLogOn", true);
 			session.setAttribute("memberInfo", memberDTO);
 			return "/main/main";
-			//¸ŞÀÎÆäÀÌÁö·Î ÀÌµ¿.
+			//ë©”ì¸í˜ì´ì§€ë¡œ ì´ë™.
 
-		} else { //memberVO°¡ Á¸ÀçÇÏÁö¾ÊÀ» °æ¿ì message¸¦ ´ã¾Æ return + loginÆäÀÌÁö·Î ÀÌµ¿
-			String message = "¾ÆÀÌµğ³ª  ºñ¹Ğ¹øÈ£°¡ Æ²¸³´Ï´Ù. ´Ù½Ã ·Î±×ÀÎÇØÁÖ¼¼¿ä";
+		} else { //memberVOê°€ ì¡´ì¬í•˜ì§€ì•Šì„ ê²½ìš° messageë¥¼ ë‹´ì•„ return + loginí˜ì´ì§€ë¡œ ì´ë™
+			String message = "ì•„ì´ë””ë‚˜  ë¹„ë°€ë²ˆí˜¸ê°€ í‹€ë¦½ë‹ˆë‹¤. ë‹¤ì‹œ ë¡œê·¸ì¸í•´ì£¼ì„¸ìš”";
 			model.addAttribute("message", message);
 		}
 		return "/member/login";
@@ -64,65 +64,65 @@ public class MemberControllerImpl extends BaseController implements MemberContro
 	}
 
 
-	//È¸¿ø°¡ÀÔ
+	//íšŒì›ê°€ì…
 	@Override
 	@RequestMapping(value="/join" ,method = RequestMethod.POST)
 	public ResponseEntity addMember(@ModelAttribute("memberDTO") MemberDTO _member,
-			                HttpServletRequest request, HttpServletResponse response) throws Exception {
+									HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html; charset=UTF-8");
 		request.setCharacterEncoding("utf-8");
 		String message = null;
 		ResponseEntity resEntity = null;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
-		
+
 		try {
-			//È¸¿ø°¡ÀÔÀ» try, addMember ¼º°ø½Ã ¾È³»¹®±¸¿Í ÇÔ²²  loginÆäÀÌÁö·Î ÀÌµ¿ÇÑ´Ù.
-		    memberService.addMember(_member);
-		    message  = "<script>";
-		    message +=" alert('sopang¿¡ ¿À½Å°É È¯¿µÇÕ´Ï´Ù!');";
-		    message += " location.href='"+request.getContextPath()+"/member/login';";
-		    message += " </script>";
-		    
-		}catch(Exception e) {
-			//¿À·ù¹ß»ı½Ã, È¸¿ø°¡ÀÔÆäÀÌÁö·Î ÀçÀÌµ¿
+			//íšŒì›ê°€ì…ì„ try, addMember ì„±ê³µì‹œ ì•ˆë‚´ë¬¸êµ¬ì™€ í•¨ê»˜  loginí˜ì´ì§€ë¡œ ì´ë™í•œë‹¤.
+			memberService.addMember(_member);
 			message  = "<script>";
-		    message += " location.href='"+request.getContextPath()+"/member/join';";
-		    message += " </script>";
+			message +=" alert('sopangì— ì˜¤ì‹ ê±¸ í™˜ì˜í•©ë‹ˆë‹¤!');";
+			message += " location.href='"+request.getContextPath()+"/member/login';";
+			message += " </script>";
+
+		}catch(Exception e) {
+			//ì˜¤ë¥˜ë°œìƒì‹œ, íšŒì›ê°€ì…í˜ì´ì§€ë¡œ ì¬ì´ë™
+			message  = "<script>";
+			message += " location.href='"+request.getContextPath()+"/member/join';";
+			message += " </script>";
 			e.printStackTrace();
 		}
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
-		
-		//°¢ ÄÉÀÌ½º¿¡ µû¸¥ À§ ¼³Á¤°ª return
+
+		//ê° ì¼€ì´ìŠ¤ì— ë”°ë¥¸ ìœ„ ì„¤ì •ê°’ return
 		return resEntity;
 	}
 
-	
-	
-	
-	//¾ÆÀÌµğ Áßº¹È®ÀÎ
+
+
+
+	//ì•„ì´ë”” ì¤‘ë³µí™•ì¸
 	@Override
 	@RequestMapping(value="/overlapped" ,method = RequestMethod.POST)
 	public ResponseEntity overlapped(@RequestParam("id") String id,HttpServletRequest request, HttpServletResponse response) throws Exception{
 		ResponseEntity resEntity = null;
-		
-		//overlappedÀÇ °æ°ú¸¦ ¸ÅÇÎÇØ return ÇÑ´Ù.
+
+		//overlappedì˜ ê²½ê³¼ë¥¼ ë§¤í•‘í•´ return í•œë‹¤.
 		String result = memberService.overlapped(id);
 		resEntity = new ResponseEntity(result, HttpStatus.OK);
 		return resEntity;
 	}
-	
-	
-	
-	//·Î±×¾Æ¿ô
 
-	//ÇÑ¹ø ´õ Ã¼Å©ÇÏ±â
+
+
+	//ë¡œê·¸ì•„ì›ƒ
+
+	//í•œë²ˆ ë” ì²´í¬í•˜ê¸°
 	@Override
 	@RequestMapping(value="/logout" ,method = RequestMethod.GET)
 	public String logout(Model model, RedirectAttributes redirectAttributes,
 						 HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session=request.getSession();
-		//¼¼¼Ç ¼³Á¤ ÃÊ±âÈ­ ¹× ¸ŞÀÎÆäÀÌÁö ÀÌµ¿.
+		//ì„¸ì…˜ ì„¤ì • ì´ˆê¸°í™” ë° ë©”ì¸í˜ì´ì§€ ì´ë™.
 		session.setAttribute("isLogOn", false);
 		session.removeAttribute("memberInfo");
 		return "redirect:/main/main";

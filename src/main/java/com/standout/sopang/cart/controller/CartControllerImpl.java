@@ -38,7 +38,7 @@ public class CartControllerImpl extends BaseController implements CartController
 	@Autowired
 	private MemberDTO memberDTO;
 	
-	//Àå¹Ù±¸´Ï
+	//ì¥ë°”êµ¬ë‹ˆ
 
 	@Override
 	@RequestMapping(value="/myCartList" ,method = RequestMethod.GET)
@@ -46,7 +46,7 @@ public class CartControllerImpl extends BaseController implements CartController
 			throws Exception {
 		HttpSession session = request.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberInfo");
-		//È¸¿øÁ¤º¸¿¡ ¸Â´Â Àå¹Ù±¸´Ï ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+		//íšŒì›ì •ë³´ì— ë§ëŠ” ì¥ë°”êµ¬ë‹ˆ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 		if (memberDTO != null) {
 			String member_id = memberDTO.getMember_id();
 
@@ -66,7 +66,7 @@ public class CartControllerImpl extends BaseController implements CartController
 //		HttpSession session=request.getSession();
 //		MemberVO memberVO=(MemberVO)session.getAttribute("memberInfo");
 //
-//		//È¸¿øÁ¤º¸¿¡ ¸Â´Â Àå¹Ù±¸´Ï ¸®½ºÆ®¸¦ ºÒ·¯¿Â´Ù.
+//		//íšŒì›ì •ë³´ì— ë§ëŠ” ì¥ë°”êµ¬ë‹ˆ ë¦¬ìŠ¤íŠ¸ë¥¼ ë¶ˆëŸ¬ì˜¨ë‹¤.
 //		if (memberVO != null) {
 //			String member_id = memberVO.getMember_id();
 //
@@ -80,7 +80,7 @@ public class CartControllerImpl extends BaseController implements CartController
 //	}
 
 
-	//Àå¹Ù±¸´Ï Ãß°¡
+	//ì¥ë°”êµ¬ë‹ˆ ì¶”ê°€
 	@RequestMapping(value="/addGoodsInCart" ,method = RequestMethod.POST,produces = "application/text; charset=utf8")
 	public  @ResponseBody String addGoodsInCart(@RequestParam("goods_id") int goods_id,
 			                    HttpServletRequest request, HttpServletResponse response)  throws Exception{
@@ -89,33 +89,33 @@ public class CartControllerImpl extends BaseController implements CartController
 		memberDTO=(MemberDTO)session.getAttribute("memberInfo");
 		String member_id=memberDTO.getMember_id();
 		
-		//È¸¿øÁ¤º¸¿Í Ãß°¡ÇÏ°íÀÚÇÏ´Â »óÇ°id·Î Àå¹Ù±¸´Ï Áßº¹Ã¼Å© ÈÄ booleanÇü isAreadyExisted·Î ¸®ÅÏ°ª ÀúÀå
+		//íšŒì›ì •ë³´ì™€ ì¶”ê°€í•˜ê³ ìí•˜ëŠ” ìƒí’ˆidë¡œ ì¥ë°”êµ¬ë‹ˆ ì¤‘ë³µì²´í¬ í›„ booleaní˜• isAreadyExistedë¡œ ë¦¬í„´ê°’ ì €ì¥
 		cartDTO.setMember_id(member_id);
 		cartDTO.setGoods_id(goods_id);
 		boolean isAreadyExisted=cartService.findCartGoods(cartDTO);
 		
-		//Áßº¹µÉ°æ¿ì already_existed return, ¿ÜÀÇ °æ¿ì add_success return
+		//ì¤‘ë³µë ê²½ìš° already_existed return, ì™¸ì˜ ê²½ìš° add_success return
 		if(isAreadyExisted==true){return "already_existed";}
 		else{cartService.addGoodsInCart(cartDTO);return "add_success";}
-		// ¹®ÀÚ¿­·Î ³ª°¡´Âµ¥ ¾î¶»°Ô Ã³¸®ÇÒÁö?
+		// ë¬¸ìì—´ë¡œ ë‚˜ê°€ëŠ”ë° ì–´ë–»ê²Œ ì²˜ë¦¬í• ì§€?
 
 	}
 	
 	
 	
-	//Àå¹Ù±¸´Ï »èÁ¦
+	//ì¥ë°”êµ¬ë‹ˆ ì‚­ì œ
 	@RequestMapping(value="/removeCartGoods" ,method = RequestMethod.POST)
 	public String removeCartGoods(@RequestParam("cart_id") int cart_id,
 			                          HttpServletRequest request, HttpServletResponse response,
 								  Model model,RedirectAttributes redirectAttributes)  throws Exception{
 
-		//@RequestParam¹ŞÀº cart_id »óÇ°À» »èÁ¦ ÈÄ myCartList·Î redirect
+		//@RequestParamë°›ì€ cart_id ìƒí’ˆì„ ì‚­ì œ í›„ myCartListë¡œ redirect
 		cartService.removeCartGoods(cart_id);
 		return "redirect:/cart/myCartList.do";
 	}
 
-	//Àå¹Ù±¸´Ï ¼öÁ¤
-	//³ªÁß¿¡ @RequestParam MapÀ¸·Î Ã³¸®ÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎ
+	//ì¥ë°”êµ¬ë‹ˆ ìˆ˜ì •
+	//ë‚˜ì¤‘ì— @RequestParam Mapìœ¼ë¡œ ì²˜ë¦¬í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸
 	@RequestMapping(value="/modifyCartQty" ,method = RequestMethod.POST)
 	public @ResponseBody String  modifyCartQty(@RequestParam("goods_id") int goods_id,
 			                                   @RequestParam("cart_goods_qty") int cart_goods_qty,
@@ -124,13 +124,13 @@ public class CartControllerImpl extends BaseController implements CartController
 		memberDTO=(MemberDTO)session.getAttribute("memberInfo");
 		String member_id=memberDTO.getMember_id();
 		
-		//member_idÀÇ @RequestParam¹ŞÀº goods_id¿Í cart_goods_qty¿¡ ¼öÁ¤³»¿ëÀ» ¹İ¿µÇÏ°í °á°ú°ªÀ» ¸®ÅÏ¹Ş¾Æ result¿¡ ÀúÀå
+		//member_idì˜ @RequestParamë°›ì€ goods_idì™€ cart_goods_qtyì— ìˆ˜ì •ë‚´ìš©ì„ ë°˜ì˜í•˜ê³  ê²°ê³¼ê°’ì„ ë¦¬í„´ë°›ì•„ resultì— ì €ì¥
 		cartDTO.setMember_id(member_id);
 		cartDTO.setGoods_id(goods_id);
 		cartDTO.setCart_goods_qty(cart_goods_qty);
 		boolean result=cartService.modifyCartQty(cartDTO);
 		
-		//¿Ï·á½Ã modify_success, ¿ÜÀÇ °æ¿ì modify_failed¸¦ ¸®ÅÏ.
+		//ì™„ë£Œì‹œ modify_success, ì™¸ì˜ ê²½ìš° modify_failedë¥¼ ë¦¬í„´.
 		if(result==true){return "modify_success";}
 		else{return "modify_failed";	}
 		
