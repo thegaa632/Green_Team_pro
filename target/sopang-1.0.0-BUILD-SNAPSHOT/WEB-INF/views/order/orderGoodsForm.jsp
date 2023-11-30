@@ -226,12 +226,12 @@
                                         </label>
                                     </div>
 
-                                    <!-- <div class="form-check col-3">
-                                      <input class="form-check-input" type="radio" name="pay_method" id="pay2" value="제휴 신용카드">
+                                     <div class="form-check col-3">
+                                      <input class="form-check-input" type="radio" name="pay_method" id="pay2" value="소팡페이">
                                       <label class="form-check-label" for="pay2">
-                                        제휴 신용카드
+                                        소팡페이
                                       </label>
-                                    </div> -->
+                                    </div>
 
                                     <!-- <div class="form-check col-3">
                                       <input class="form-check-input" type="radio" name="pay_method" id="pay3" value="실시간 계좌이체">
@@ -417,7 +417,7 @@
 
 
                     <!-- 결제하기-->
-                    <a name="btn_process_pay_order" onClick="window.onload = fn_process_pay_order()"
+                    <a name="btn_process_pay_order" onClick="fn_process_pay_order()"
                        class="btn btn-lg btn-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-5 mb-2">결제하기</a>
 
                     <!-- 결제하기-->
@@ -427,13 +427,17 @@
                        class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-3 fs-6">취소하기</a>
                     <!-- 취소하기, 메인페이지로 돌아간다.-->
                 </div>
+            </form>
         </div>
     </div>
 </div>
 
-<form id = "form_fin" name="order_info" method="post" accept-charset="UTF-8"
-      action="${contextPath}/order/payToOrderGoods">
+<form id="active" name="order_info" method="post" accept-charset="UTF-8"
+      action="${contextPath}/test/sopangPay">
+
+
     <input type="hidden" name="ordr_idxx" value="${ordr_idxx }">
+    <input type="hidden" name="cart_goods_qty" value="${cart_goods_qty }">
     <input type="hidden" name="good_name" value="${ good_name }">
     <input type="hidden" name="good_mny" value="${ good_mny }">
     <input type="hidden" name="buyr_name" value="${ buyr_name }">
@@ -469,8 +473,18 @@
     <input type="hidden" name="tran_cd" value=""/>
     <input type="hidden" name="use_pay_method" value=""/>
     <input type="hidden" name="card_pay_method" value=""/>
+
+    <input type="submit" value="결제">
 </form>
 
-<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>
+<%--<script type="text/javascript" src="https://pay.kcp.co.kr/plugin/payplus_web.jsp"></script>--%>
 <script type="text/javascript" src="${contextPath}/resources/js/order.js"></script>
 <script type="text/javascript" src="${contextPath}/resources/js/script.js"></script>
+<script>
+    function fn_process_pay_order() {
+    window.onload = function () {
+        document.getElementById('active').submit();
+
+    }
+}
+</script>

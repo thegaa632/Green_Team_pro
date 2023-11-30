@@ -36,7 +36,7 @@
 	<insert id="insertNewOrder" parameterType="orderVO">
 		<selectKey resultType="int" keyProperty="order_seq_num"
 			order="BEFORE">
-			select order_seq_num.nextval from dual
+			select order_seq_num from order by order_seq_num desc limit 1
 		</selectKey>
 	    <![CDATA[
 			insert into t_shopping_order(order_seq_num,
@@ -54,7 +54,8 @@
 					                    pay_method,
 						                card_com_name,
 						                card_pay_month,
-						                pay_orderer_hp_num)
+						                pay_orderer_hp_num,
+			                             creDate)
 							     values(#{order_seq_num},
 							            #{order_id},
 									    #{goods_id},
@@ -70,7 +71,8 @@
 					                    #{pay_method},
 						                #{card_com_name},
 						                #{card_pay_month},
-						                #{pay_orderer_hp_num})
+						                #{pay_orderer_hp_num},
+							         	NOW())
     	]]>
 	</insert>
 	
@@ -78,10 +80,14 @@
 
 	<!-- 주문번호 시퀀스를 생성 -->
 	<!-- 주문번호 시퀀스를 생성하여 결과값을 반환한다. -->
+<!--오라클용-->
+<!--	<select id="selectOrderID" resultType="int">-->
+<!--	    <![CDATA[-->
+<!--        # select seq_order_id.nextval from dual-->
+<!--        ]]>-->
+<!--	</select>-->
 	<select id="selectOrderID" resultType="int">
-	    <![CDATA[
-		    select seq_order_id.nextval from dual
-    	]]>
+		SELECT LAST_INSERT_ID() AS order_id;
 	</select>
 	
 	

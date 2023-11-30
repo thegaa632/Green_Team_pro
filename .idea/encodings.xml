@@ -6,7 +6,13 @@
     <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/cart/controller/CartControllerImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/member/controller/MemberControllerImpl.java" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/mypage/controller/MyPageControllerImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/controller/EasyPayController.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/controller/EasyPayPopup.java" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/controller/OrderControllerImpl.java" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/dao/OrderDAOImpl.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/service/ApiService01.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/service/OrderService.java" charset="x-windows-949" />
+    <file url="file://$PROJECT_DIR$/src/main/java/com/standout/sopang/order/service/OrderServiceImpl.java" charset="x-windows-949" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/js/order.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/src/main/webapp/resources/js/script.js" charset="UTF-8" />
     <file url="PROJECT" charset="UTF-8" />

@@ -108,7 +108,8 @@ function fn_order_all_cart_goods(){
 	//체크된 상품이 있을 경우 위에 세팅한 값으로 주문.
 	if(checkLen > 0){
 		objForm.method="post";
-	 	objForm.action="${contextPath}/order/orderAllCartGoods.do";
+	 	objForm.action="${contextPath}/order/orderAllCartGoods";
+		 console.log("cart_goods_qty : " + cart_goods_qty[i]);
 		objForm.submit();
 		//사용자가 뒤로가기 한뒤 다시 주문할때를 대비해 input 값을 되돌려놓음.
 	 	cart_goods_qty[i].value=cart_goods_qty[i].previousElementSibling.value;

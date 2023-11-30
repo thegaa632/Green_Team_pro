@@ -31,17 +31,15 @@ public class OrderServiceImpl implements OrderService {
 	//주문하기
 	public void addNewOrder(List<OrderDTO> myOrderList) throws Exception{
 		//주문하기
-
 		List<OrderVO> orderVOList =myOrderList.stream().map
 						((order)->modelMapper.map(order,OrderVO.class))
 				.collect(Collectors.toList());
 
-
 		orderDAO.insertNewOrder(orderVOList);
-
+		System.out.println("insert addnewOrder");
 		//카트에서 주문 상품 제거한다.
 		orderDAO.removeGoodsFromCart(orderVOList);
 		System.out.println("장바구니에서 해당 상품을 삭제했습니다.");
-	}	
-	
+	}
+//	pay_orderer_hp_num
 }

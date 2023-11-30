@@ -6,7 +6,7 @@
       http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.1.xsd">
 	<aop:aspectj-autoproxy/>
 	<bean id="hikariConfig" class="com.zaxxer.hikari.HikariConfig">
-		<property name="driverClassName" value="com.mysql.jdbc.Driver"></property>
+		<property name="driverClassName" value="com.mysql.cj.jdbc.Driver"></property>
 		<property name="jdbcUrl" value="jdbc:mysql://localhost:3306/scott"></property>
 		<property name="username" value="root"></property>
 		<property name="password" value="12341234"></property>

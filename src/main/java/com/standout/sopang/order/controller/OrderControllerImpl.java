@@ -81,7 +81,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 
 	// 다중주문
-	@RequestMapping(value = "/orderAllCartGoods", method = RequestMethod.POST)
+	@RequestMapping(value = "/orderAllCartGoods", method = {RequestMethod.POST})
 	public String orderAllCartGoods(@RequestParam("cart_goods_qty") String[] cart_goods_qty,
 									HttpServletRequest request, HttpServletResponse response) throws Exception {
 		HttpSession session = request.getSession();
@@ -133,7 +133,7 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 
 
 	@Override
-	@RequestMapping(value = "/payToOrderGoods", method = RequestMethod.POST)
+	@RequestMapping(value = "/payToOrderGoods", method = {RequestMethod.POST})
 	public String payToOrderGoods(Map<String, String> receiverMap, HttpServletRequest request,
 								  Model model, RedirectAttributes redirectAttributes, HttpServletResponse response)
 			throws Exception {
@@ -150,13 +150,14 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		//주문정보를 가져온다.
 		List<OrderDTO> myOrderList = (List<OrderDTO>) session.getAttribute("myOrderList");
 
+
 		//결제성공여부
 		String responseCode = "";
 		String responseMsg = "";
 		String itemName = "";
 		String orderNumber = "";
 		int amount = 0;
-		//주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
+//		주문정보를 for로 돌리며 myOrderList에 수령자정보를 담는다.
 		for (int i = 0; i < myOrderList.size(); i++) {
 			OrderDTO orderDTO = (OrderDTO) myOrderList.get(i);
 			orderDTO.setMember_id(member_id);
@@ -172,87 +173,101 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 			orderDTO.setOrderer_hp(orderer_hp);
 
 
+//		payup form 추가
+//			if(myOrderList.size() == 1) {
+//				itemName = orderDTO.getGoods_title();
+//			}else if(myOrderList.size() > 1){
+//				itemName = orderDTO.getGoods_title() +" 외 " + i + "건";
+//			}
+//			orderNumber += String.valueOf(orderDTO.getOrder_seq_num());
+//			amount += orderDTO.getGoods_sales_price();
+//
+//         amount = String.valueOf(orderDTO.getGoods_sales_price());
+//			myOrderList.set(i, orderDTO);
+//		}
 
-			//payup form 추가
-			if(myOrderList.size() == 1) {
-				itemName = orderDTO.getGoods_title();
-			}else if(myOrderList.size() > 1){
-				itemName = orderDTO.getGoods_title() +" 외 " + i + "건";
-			}
-			orderNumber += String.valueOf(orderDTO.getOrder_seq_num());
-			amount += orderDTO.getGoods_sales_price();
+			String merchantId = "himedia";
+			String expireMonth = receiverMap.get("expireMonth");
+			String expireYear = receiverMap.get("expireYear");
+			String birthday = receiverMap.get("birthday");
+			String cardPw = receiverMap.get("cardPw");
+			String userName = memberDTO.getMember_name();
 
-//         amount = String.valueOf(orderVO.getGoods_sales_price());
-			myOrderList.set(i, orderDTO);
+			String cardNo = receiverMap.get("cardNo");
+			String quota = receiverMap.get("card_pay_month");
+			String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
+			String timestamp = "2023020400000000";
+			String signature = apiService01.encrypt(merchantId + "|" + orderNumber + "|" + amount + "|" + apiCertKey + "|" + timestamp);
+
+
+			String url = "https://api.testpayup.co.kr/v2/api/payment/" + merchantId + "/keyin2";
+			Map<String, String> map = new HashMap<String, String>();
+			Map<String, Object> returnMap = new HashMap<String, Object>();
+			map.put("merchantId", merchantId);
+			map.put("orderNumber", orderNumber);
+			map.put("expireMonth", expireMonth);
+			map.put("expireYear", expireYear);
+			map.put("birthday", birthday);
+			map.put("cardPw", cardPw);
+			map.put("amount", Integer.toString(amount));
+			map.put("itemName", itemName);
+			map.put("userName", userName);
+			map.put("cardNo", cardNo);
+			map.put("quota", quota);
+			map.put("signature", signature);
+			map.put("timestamp", timestamp);
+
+			System.out.println("보내는값 = " + map.toString());
+			returnMap = apiService01.restApi(map, url);
+			System.out.println("db확인" + returnMap.toString());
+
+//		페이업 거래번호
+//		String transactionId = (String) returnMap.get("transactionId");
+//
+//		responseCode = (String) returnMap.get("responseCode");
+//		responseMsg = (String) returnMap.get("responseMsg");
+//	}
+
+//		if("0000".equals(responseCode)) {
+//		if("0000".equals(responseCode)) {
+//			System.out.println("성공했습니다.");
+//
+//			//수령자정보, 주문정보를 주문테이블에 반영한다.
+//			orderService.addNewOrder(myOrderList);
+//			session.setAttribute("returnMap", returnMap);
+//
+//			//완료 후 listMyOrderHistory로 리턴.
+//			return "redirect:/mypage/listMyOrderHistory.do";
+//		}else {
+//			System.out.println("실패했습니다.");
+//
+//			model.addAttribute("responseMsg", responseMsg);
+//			//실패시 다시 주문페이지로 이동
+//			return "/order/payFail";
+//		}
+
+
+			//결제실패
+//	@Override
+//	@RequestMapping(value="/payFail",method = RequestMethod.POST)
+//	public String payFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		return "/order/payFail";
+//	}
+//			orderService.addNewOrder(myOrderList);
+			return "redirect:/mypage/listMyOrderHistory";
 		}
 
-		String merchantId = "himedia";
-		String expireMonth = receiverMap.get("expireMonth");
-		String expireYear = receiverMap.get("expireYear");
-		String birthday = receiverMap.get("birthday");
-		String cardPw = receiverMap.get("cardPw");
-		String userName = memberDTO.getMember_name();
+//	@Override
+//	public String payFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//		return null;
+//	}
 
-		String cardNo = receiverMap.get("cardNo");
-		String quota = receiverMap.get("card_pay_month");
-		String apiCertKey = "ac805b30517f4fd08e3e80490e559f8e";
-		String timestamp = "2023020400000000";
-		String signature = apiService01.encrypt(merchantId + "|" + orderNumber + "|" + amount + "|" + apiCertKey + "|" + timestamp) ;
+        return member_id;
+    }
 
 
-		String url = "https://api.testpayup.co.kr/v2/api/payment/"+merchantId+"/keyin2";
-		Map<String, String> map = new HashMap<String, String>();
-		Map<String, Object> returnMap = new HashMap<String, Object>();
-		map.put("merchantId", merchantId);
-		map.put("orderNumber", orderNumber);
-		map.put("expireMonth", expireMonth);
-		map.put("expireYear", expireYear);
-		map.put("birthday", birthday);
-		map.put("cardPw", cardPw);
-		map.put("amount", Integer.toString(amount));
-		map.put("itemName", itemName);
-		map.put("userName", userName);
-		map.put("cardNo", cardNo);
-		map.put("quota", quota);
-		map.put("signature", signature);
-		map.put("timestamp", timestamp);
-
-		System.out.println("보내는값 = " + map.toString());
-		returnMap = apiService01.restApi(map, url);
-		System.out.println("db확인"+ returnMap.toString());
-
-		//페이업 거래번호
-		String transactionId = (String) returnMap.get("transactionId");
-
-		responseCode = (String) returnMap.get("responseCode");
-		responseMsg = (String) returnMap.get("responseMsg");
-
-
-		if("0000".equals(responseCode)) {
-			System.out.println("성공했습니다.");
-
-			//수령자정보, 주문정보를 주문테이블에 반영한다.
-			orderService.addNewOrder(myOrderList);
-			session.setAttribute("returnMap", returnMap);
-
-			//완료 후 listMyOrderHistory로 리턴.
-			return "redirect:/mypage/listMyOrderHistory.do";
-		}else {
-			System.out.println("실패했습니다.");
-
-			model.addAttribute("responseMsg", responseMsg);
-			//실패시 다시 주문페이지로 이동
-			return "/order/payFail";
-		}
-	}
-
-
-
-	//결제실패
 	@Override
-	@RequestMapping(value="/payFail",method = RequestMethod.POST)
 	public String payFail(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		return "/order/payFail";
+		return null;
 	}
-
 }
