@@ -496,7 +496,7 @@ function search_order_history(fixedSearchPeriod) {
 	formObj.appendChild(i_fixedSearch_period);
 	document.body.appendChild(formObj);
 	formObj.method = "get";
-	formObj.action = "${contextPath}/admin/goods/adminGoodsMain.do";
+	formObj.action = "${contextPath}/admin/goods/adminGoodsMain";
 	formObj.submit();
 }
 				

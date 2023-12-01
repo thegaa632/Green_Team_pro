@@ -37,7 +37,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 	@Autowired
 	private AdminGoodsService adminGoodsService;
 
-	// »óÇ°°ü¸® - »óÇ°¸®½ºÆ®
+	// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ - ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Æ®
 	@RequestMapping(value = "/adminGoodsMain", method = { RequestMethod.POST, RequestMethod.GET })
 	public String adminGoodsMain(@RequestParam Map<String, String> dateMap, HttpServletRequest request
 		, Model model,	HttpServletResponse response) throws Exception {
@@ -45,31 +45,31 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		session = request.getSession();
 		session.setAttribute("side_menu", "admin_mode");
 		
-		//fixedSearchPeriod°ªÀ» ¹Þ¾Æ ÀúÀå
+		//fixedSearchPeriodï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 
-		//±â°£ ÃÊ±âÈ­
+		//ï¿½â°£ ï¿½Ê±ï¿½È­
 		String beginDate = null, endDate = null;
 
 
 
-		//fixedSearchPeriod°ª °¡°øÇØ dateMap¿¡ put
+		//fixedSearchPeriodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dateMapï¿½ï¿½ put
 		String[] tempDate = calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate = tempDate[0];
 		endDate = tempDate[1];
 		dateMap.put("beginDate", beginDate);
 		dateMap.put("endDate", endDate);
 
-		//condMap¿¡ put ÈÄ listNewGoods¼öÇà.
+		//condMapï¿½ï¿½ put ï¿½ï¿½ listNewGoodsï¿½ï¿½ï¿½ï¿½.
 		Map<String, Object> condMap = new HashMap<String, Object>();
 		condMap.put("beginDate", beginDate);
 		condMap.put("endDate", endDate);
 		List<GoodsDTO> newGoodsList = adminGoodsService.listNewGoods(condMap);
 		
-		//¸®ÅÏµÈ »óÇ°¸®½ºÆ® newGoodsList¸¦  mavÀÇ newGoodsList¿¡ ºÎ¿©
+		//ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½Æ® newGoodsListï¿½ï¿½  mavï¿½ï¿½ newGoodsListï¿½ï¿½ ï¿½Î¿ï¿½
 		model.addAttribute("newGoodsList", newGoodsList);
 
-		//³¯Â¥Çü½ÄÁöÁ¤
+		//ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String beginDate1[] = beginDate.split("-");
 		String endDate2[] = endDate.split("-");
 
@@ -84,7 +84,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		return "/admin/goods/adminGoodsMain";
 	}
 
-	// »óÇ°Ãß°¡
+	// ï¿½ï¿½Ç°ï¿½ß°ï¿½
 	@RequestMapping(value = "/addNewGoods", method = { RequestMethod.POST })
 	public ResponseEntity addNewGoods(MultipartHttpServletRequest multipartRequest, HttpServletResponse response)
 			throws Exception {
@@ -93,7 +93,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		
 		String imageFileName = null;
 		
-		//form °ªÀ» ¹Þ¾Æ newGoodsMap¿¡ put
+		//form ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ newGoodsMapï¿½ï¿½ put
 		Map newGoodsMap = new HashMap();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -102,7 +102,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			newGoodsMap.put(name, value);
 		}
 
-		//¼¼¼Ç¿¡¼­ getÇÑ memberInfo°¡ reg_id, ¼öÁ¤ÇÑÀÌ°¡ µÊ.
+		//ï¿½ï¿½ï¿½Ç¿ï¿½ï¿½ï¿½ getï¿½ï¿½ memberInfoï¿½ï¿½ reg_id, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ì°ï¿½ ï¿½ï¿½.
 		HttpSession session = multipartRequest.getSession();
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberInfo");
 		String reg_id = memberDTO.getMember_id();
@@ -110,7 +110,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		//baseController upload
 		List<ImageFileDTO> imageFileList = upload(multipartRequest);
 		
-		//imageFileList¸¦ ¹Þ¾Æ setReg_idÇØ newGoodsMap¿¡ put
+		//imageFileListï¿½ï¿½ ï¿½Þ¾ï¿½ setReg_idï¿½ï¿½ newGoodsMapï¿½ï¿½ put
 		if (imageFileList != null && imageFileList.size() != 0) {
 			for (ImageFileDTO imageFileDTO : imageFileList) {
 				imageFileDTO.setReg_id(reg_id);
@@ -124,51 +124,51 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		
 		try {
-			//»óÇ°, ÆÄÀÏÁ¤º¸°¡ µé¾îÀÖ´Â newGoodsMapÀ¸·Î addNewGoods ¼öÇà
+			//ï¿½ï¿½Ç°, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ö´ï¿½ newGoodsMapï¿½ï¿½ï¿½ï¿½ addNewGoods ï¿½ï¿½ï¿½ï¿½
 			int goods_id = adminGoodsService.addNewGoods(newGoodsMap);
 			
-			//imageFileList°¡ ÀÖÀ» °æ¿ì 
+			//imageFileListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
 			if (imageFileList != null && imageFileList.size() != 0) {
 				for (ImageFileDTO imageFileDTO : imageFileList) {
 					
-					//temp¾È¿¡ imageFileName ÀÌ¸§À¸·Î ÆÄÀÏ »ý¼º,
+					//tempï¿½È¿ï¿½ imageFileName ï¿½Ì¸ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½,
 					imageFileName = imageFileDTO.getFileName();
 					File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
 					
-					//ÀÌÈÄ goods_id°¡ Æú´õ¸íÀÎ Æú´õ¸¦ ÇÏ³ª ¸¸µé¾î 
+					//ï¿½ï¿½ï¿½ï¿½ goods_idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï³ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ 
 					File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 					
-					//ÀÌµ¿ÇÑ´Ù.
+					//ï¿½Ìµï¿½ï¿½Ñ´ï¿½.
 					FileUtils.moveFileToDirectory(srcFile, destDir, true);
 				}
 			}
 			
-			//À§ÀÇ ÀýÂ÷°¡ ¿Ï·áµÇ¸é ¾È³»ÇÏ¸ç, adminGoodsMain »óÇ°¸ñ·Ï ÆäÀÌÁö¸¦ reloadÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½Ç¸ï¿½ ï¿½È³ï¿½ï¿½Ï¸ï¿½, adminGoodsMain ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reloadï¿½Ñ´ï¿½.
 			message = "<script>";
-			message += " alert('»õ»óÇ°À» Ãß°¡Çß½À´Ï´Ù.');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain.do';";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½Ç°ï¿½ï¿½ ï¿½ß°ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½.');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain';";
 			message += ("</script>");
 		} catch (Exception e) {
-			//¿¹¿Ü¹ß»ýÀÇ °æ¿ì 
-			//ÀÌ¹Ì ÆÄÀÏÀÌ »ý¼ºµÇ¾î ÀÖ´Â ÀÌÈÄ ¿¡·¯°¡ ¹ß»ý½Ã ´ëºñÇÑ´Ù.
+			//ï¿½ï¿½ï¿½Ü¹ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ 
+			//ï¿½Ì¹ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 			if (imageFileList != null && imageFileList.size() != 0) {
 				for (ImageFileDTO imageFileDTO : imageFileList) {
 					imageFileName = imageFileDTO.getFileName();
 					File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
-					//¸¸µé¾îÁø temp°æ·Î¾ÈÀÇ ÆÄÀÏµéÀ» »èÁ¦ÇÑ´Ù.
+					//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ tempï¿½ï¿½Î¾ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					srcFile.delete();
 				}
 			}
-			//»èÁ¦¸¦ ¿Ï·áÇÑ ÀÌÈÄ ¾È³»ÇÏ¸ç, adminGoodsMain »óÇ°¸ñ·Ï ÆäÀÌÁö¸¦ reloadÇÑ´Ù.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½Ï¸ï¿½, adminGoodsMain ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ reloadï¿½Ñ´ï¿½.
 			message = "<script>";
-			message += " alert('¿À·ù°¡ ¹ß»ýÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain.do';";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain';";
 			message += ("</script>");
 			e.printStackTrace();
 		}
 		
 		
-		//°¢ °æ¿ì¿¡ µû¸¥ message¸¦ °¡Áö°í resEntity ¸®ÅÏÇÑ´Ù.
+		//ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ resEntity ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}
@@ -176,23 +176,23 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 	@Override
 	@RequestMapping(value = "/deleteGoods", method = RequestMethod.GET)
 	public String deleteGoods(String goods_id, HttpServletRequest request, Model model, HttpServletResponse response, RedirectAttributes redirectAttributes) throws Exception {
-		//goods_id¸¦ °¡Áö°í »èÁ¦ ÁøÇà.
+		//goods_idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 		adminGoodsService.deleteGoods(goods_id);
 
-		//»óÇ°Á¤º¸°¡ Àß »èÁ¦µÇ¾ú´Ù¸é
-		//ÇØ´ç goods_id °æ·ÎÀÇ ÀÌ¹ÌÁö ÆÄÀÏµµ »èÁ¦ÇØ ¿ë·®ºÎÁ·°ú Áßº¹À» ¹æÁöÇÑ´Ù.
+		//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½
+		//ï¿½Ø´ï¿½ goods_id ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë·®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		File folder = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 		try {
-			//folder°¡ Á¸ÀçÇÏ´Â ÇÑ ¾Æ·¡ÀÇ ÀýÂ÷°¡ ¹Ýº¹µÈ´Ù.
-			//ÆÄÀÏÀÌ ¾Æ¹«°Íµµ ¾ø´Â Æú´õ¸¸À» »èÁ¦ÇÒ ¼ö ÀÖÀ½À¸·Î ÆÄÀÏÀ» ¸ÕÀú »èÁ¦ÇÏ°í Æú´õ¸¦ »èÁ¦ÇÏ´Â °úÁ¤À» °ÅÄ£´Ù.
+			//folderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½È´ï¿½.
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä£ï¿½ï¿½.
 			while (folder.exists()) {
 				File[] folder_list = folder.listFiles();
 				for (int j = 0; j < folder_list.length; j++) {
-					//ÆÄÀÏ »èÁ¦
+					//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 					folder_list[j].delete();
 				}
 				if (folder_list.length == 0 && folder.isDirectory()) {
-					//¸ðµç ÆÄÀÏÀÌ »èÁ¦µÇ¾ú´Ù¸é, Æú´õ¸¦ »èÁ¦ÇÑ´Ù.
+					//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					folder.delete();
 				}
 			}
@@ -200,32 +200,32 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 			e.printStackTrace();
 		}
 
-		//¿Ï·áÈÄ adminGoodsMain·Î reload
+		//ï¿½Ï·ï¿½ï¿½ï¿½ adminGoodsMainï¿½ï¿½ reload
 
 		return "redirect:/admin/goods/adminGoodsMain";
 	}
 
-//	// »óÇ°»èÁ¦
+//	// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 //	@RequestMapping(value = "/deleteGoods", method = RequestMethod.GET)
 //	public String deleteGoods(@RequestParam("goods_id") String goods_id, HttpServletRequest request,
 //							  , RedirectAttributes redirectAttributes, Model model, HttpServletResponse response) throws Exception {
-//		//goods_id¸¦ °¡Áö°í »èÁ¦ ÁøÇà.
+//		//goods_idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½.
 //		adminGoodsService.deleteGoods(goods_id);
 //
-//		//»óÇ°Á¤º¸°¡ Àß »èÁ¦µÇ¾ú´Ù¸é
-//		//ÇØ´ç goods_id °æ·ÎÀÇ ÀÌ¹ÌÁö ÆÄÀÏµµ »èÁ¦ÇØ ¿ë·®ºÎÁ·°ú Áßº¹À» ¹æÁöÇÑ´Ù.
+//		//ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½
+//		//ï¿½Ø´ï¿½ goods_id ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ë·®ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ßºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //		File folder = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 //		try {
-//			//folder°¡ Á¸ÀçÇÏ´Â ÇÑ ¾Æ·¡ÀÇ ÀýÂ÷°¡ ¹Ýº¹µÈ´Ù.
-//			//ÆÄÀÏÀÌ ¾Æ¹«°Íµµ ¾ø´Â Æú´õ¸¸À» »èÁ¦ÇÒ ¼ö ÀÖÀ½À¸·Î ÆÄÀÏÀ» ¸ÕÀú »èÁ¦ÇÏ°í Æú´õ¸¦ »èÁ¦ÇÏ´Â °úÁ¤À» °ÅÄ£´Ù.
+//			//folderï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ ï¿½Æ·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ýºï¿½ï¿½È´ï¿½.
+//			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Æ¹ï¿½ï¿½Íµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä£ï¿½ï¿½.
 //			while (folder.exists()) {
 //				File[] folder_list = folder.listFiles();
 //				for (int j = 0; j < folder_list.length; j++) {
-//					//ÆÄÀÏ »èÁ¦
+//					//ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 //					folder_list[j].delete();
 //				}
 //				if (folder_list.length == 0 && folder.isDirectory()) {
-//					//¸ðµç ÆÄÀÏÀÌ »èÁ¦µÇ¾ú´Ù¸é, Æú´õ¸¦ »èÁ¦ÇÑ´Ù.
+//					//ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½, ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 //					folder.delete();
 //				}
 //			}
@@ -233,7 +233,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 //			e.printStackTrace();
 //		}
 //
-//		//¿Ï·áÈÄ adminGoodsMain·Î reload
+//		//ï¿½Ï·ï¿½ï¿½ï¿½ adminGoodsMainï¿½ï¿½ reload
 //
 //		return "redirect:/admin/goods/adminGoodsMain";
 //	}
@@ -242,7 +242,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 	
 	
 	
-	// »óÇ°¼öÁ¤
+	// ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½
 	@Override
 	@RequestMapping(value = "/modifyGoods", method = { RequestMethod.POST })
 	public ResponseEntity modifyGoods(@RequestParam("goods_id") String goods_id,
@@ -252,7 +252,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		response.setContentType("text/html; charset=UTF-8");
 		String imageFileName = null;
 
-		//form °ªÀ» ¹Þ¾Æ newGoodsMap¿¡ put
+		//form ï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ newGoodsMapï¿½ï¿½ put
 		Map newGoodsMap = new HashMap();
 		Enumeration enu = multipartRequest.getParameterNames();
 		while (enu.hasMoreElements()) {
@@ -265,7 +265,7 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		MemberDTO memberDTO = (MemberDTO) session.getAttribute("memberInfo");
 
 		
-		//¼ö·É¹ÞÀº imageFileListÀÇ Á¤º¸¿¡¼­ getFileNameÀÌ ºñ¾îÀÕÁø ¾Ê´ÂÁö È®ÀÎÇÏ°í, Ä«¿îÆ®ÇÑ´Ù.
+		//ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ imageFileListï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getFileNameï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê´ï¿½ï¿½ï¿½ È®ï¿½ï¿½ï¿½Ï°ï¿½, Ä«ï¿½ï¿½Æ®ï¿½Ñ´ï¿½.
 		int check = 0;
 		List<ImageFileDTO> imageFileList = upload(multipartRequest);
 		if (imageFileList != null && imageFileList.size() != 0) {
@@ -282,51 +282,51 @@ public class AdminGoodsControllerImpl extends BaseController implements AdminGoo
 		HttpHeaders responseHeaders = new HttpHeaders();
 		responseHeaders.add("Content-Type", "text/html; charset=utf-8");
 		try {
-			//modifyGoods »óÇ°Á¤º¸ ¤µÁ¤
+			//modifyGoods ï¿½ï¿½Ç°ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 			adminGoodsService.modifyGoods(goods_id, newGoodsMap);
 			for (ImageFileDTO imageFileDTO : imageFileList) {
 				
-				//¼ö·É¹ÞÀº Á¤º¸¿¡¼­ getFileNameÀ» Ã£À» ¼ö ¾ø´Ù¸é Æú´õ/ÀÌ¹ÌÁö¸¦ »ý¼º/¾÷·ÎµåÇÏÁö¾Ê´Â´Ù.
+				//ï¿½ï¿½ï¿½É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ getFileNameï¿½ï¿½ Ã£ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ù¸ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½/ï¿½ï¿½ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê´Â´ï¿½.
 				if (imageFileDTO.getFileName() == "" || imageFileDTO.getFileName() == null) {
 				} else {
-					//¸®½ºÆ®¿Í ÆÄÀÏÁ¤º¸¸¦ Àß ¹Þ¾Ò´Ù¸é
+					//ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Þ¾Ò´Ù¸ï¿½
 					imageFileName = imageFileDTO.getFileName();
-					//temp ÀÓ½ÃÆú´õ ¾È¿¡ ÆÄÀÏ»ý¼º imageFileName
+					//temp ï¿½Ó½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È¿ï¿½ ï¿½ï¿½ï¿½Ï»ï¿½ï¿½ï¿½ imageFileName
 					File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
-					//ÀÌ¸§ÀÌ goods_idÀÎ Æú´õ·Î µ¤¾î¾²±â copyFileToDirectory
+					//ï¿½Ì¸ï¿½ï¿½ï¿½ goods_idï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½î¾²ï¿½ï¿½ copyFileToDirectory
 					File destDir = new File(CURR_IMAGE_REPO_PATH + "\\" + goods_id);
 					FileUtils.copyFileToDirectory(srcFile, destDir);
 				}
 				
 			}
 			
-			//À§ ÀýÂ÷¸¦ ¿Ï·áÇÑ ÀÌÈÄ ¾È³»ÇÏ¸ç adminGoodsMain·Î reload
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½Ï¸ï¿½ adminGoodsMainï¿½ï¿½ reload
 			message = "<script>";
-			message += " alert('¼öÁ¤µÇ¾ú½À´Ï´Ù!');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain.do';";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½Ç¾ï¿½ï¿½ï¿½ï¿½Ï´ï¿½!');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain';";
 			message += ("</script>");
 			
 		} catch (Exception e) {
-			//¼öÁ¤Áß ¿¹¿Ü°¡ ³´À»¶§
+			//ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ü°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 			
 			if (imageFileList != null && imageFileList.size() != 0) {
 				for (ImageFileDTO imageFileDTO : imageFileList) {
 					imageFileName = imageFileDTO.getFileName();
 					File srcFile = new File(CURR_IMAGE_REPO_PATH + "\\" + "temp" + "\\" + imageFileName);
-					//tempÀÓ½Ã Æú´õ¿¡ »ý¼ºµÈ ÆÄÀÏµéÀ» »èÁ¦ÇÑ´Ù.
+					//tempï¿½Ó½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 					srcFile.delete();
 				}
 			}
 
-			//À§ ÀýÂ÷¸¦ ¿Ï·áÇÑ ÀÌÈÄ ¾È³»ÇÏ¸ç adminGoodsMain·Î reload
+			//ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ï·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½È³ï¿½ï¿½Ï¸ï¿½ adminGoodsMainï¿½ï¿½ reload
 			message = "<script>";
-			message += " alert('¿À·ù°¡ ¹ß»ýÇß½À´Ï´Ù. ´Ù½Ã ½ÃµµÇØ ÁÖ¼¼¿ä');";
-			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain.do';";
+			message += " alert('ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ß½ï¿½ï¿½Ï´ï¿½. ï¿½Ù½ï¿½ ï¿½Ãµï¿½ï¿½ï¿½ ï¿½Ö¼ï¿½ï¿½ï¿½');";
+			message += " location.href='" + multipartRequest.getContextPath() + "/admin/goods/adminGoodsMain';";
 			message += ("</script>");
 			e.printStackTrace();
 		}
 		
-		//°¢ °æ¿ì¿¡ µû¸¥ message¸¦ °¡Áö°í resEntity ¸®ÅÏÇÑ´Ù.
+		//ï¿½ï¿½ ï¿½ï¿½ì¿¡ ï¿½ï¿½ï¿½ï¿½ messageï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ resEntity ï¿½ï¿½ï¿½ï¿½ï¿½Ñ´ï¿½.
 		resEntity = new ResponseEntity(message, responseHeaders, HttpStatus.OK);
 		return resEntity;
 	}

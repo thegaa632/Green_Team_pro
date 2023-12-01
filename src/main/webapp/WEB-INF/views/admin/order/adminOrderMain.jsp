@@ -388,7 +388,7 @@ function fn_modify_order_state(index, order_id){
 			if(data.trim()=='mod_success'){
 				//수정완료
 				alert("주문 정보를 수정했습니다.");
-				location.href="${contextPath}/admin/order/adminOrderMain.do";
+				location.href="${contextPath}/admin/order/adminOrderMain";
 			}else if(data.trim()=='failed'){
 				alert("다시 시도해 주세요.");	
 			}
@@ -411,7 +411,7 @@ function search_order_history(fixedSearchPeriod) {
 	formObj.appendChild(i_fixedSearch_period);
 	document.body.appendChild(formObj);
 	formObj.method = "get";
-	formObj.action = "${contextPath}/admin/order/adminOrderMain.do";
+	formObj.action = "${contextPath}/admin/order/adminOrderMain";
 	formObj.submit();
 }
 

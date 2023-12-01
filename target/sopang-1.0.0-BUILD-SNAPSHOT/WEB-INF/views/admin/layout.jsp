@@ -68,11 +68,11 @@
 				class="position-absolute top-100 start-0 bg-light px-3 py-4 d-flex flex-column border secondary-subtle"
 				style="width: 150px;">
 				<p class="fw-bold text-black mb-2">SO관리</p>
-				<a href="${contextPath}/admin/goods/adminGoodsMain.do"
+				<a href="${contextPath}/admin/goods/adminGoodsMain"
 					class="text-decoration-none mb-2 small sideMenu adminGoodsMain">상품관리</a>
-				<a href="${contextPath}/admin/order/adminOrderMain.do"
+				<a href="${contextPath}/admin/order/adminOrderMain"
 					class="text-decoration-none mb-2 small sideMenu adminOrderMain">주문관리</a>
-				<a href="${contextPath}/admin/member/adminMemberMain.do"
+				<a href="${contextPath}/admin/member/adminMemberMain"
 					class="text-decoration-none mb-0 small sideMenu adminMemberMain">회원관리</a>
 			</div>
 			<!-- left 메뉴 -->

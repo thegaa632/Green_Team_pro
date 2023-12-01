@@ -242,7 +242,7 @@ function search_order_history(fixedSearchPeriod) {
 	formObj.appendChild(i_fixedSearch_period);
 	document.body.appendChild(formObj);
 	formObj.method = "get";
-	formObj.action = "${contextPath}/admin/member/adminMemberMain.do";
+	formObj.action = "${contextPath}/admin/member/adminMemberMain";
 	formObj.submit();
 }
 
@@ -279,7 +279,7 @@ function fn_delete_member(member_id ,del_yn){
 			success : function(data, textStatus) {
 				if(data.trim()=='delete_success'){
 					alert("삭제되었습니다.");
-					location.href="${contextPath}/admin/member/adminMemberMain.do";
+					location.href="${contextPath}/admin/member/adminMemberMain";
 				}else if(data.trim()=='failed'){
 					alert("다시 시도해 주세요.");	
 				}

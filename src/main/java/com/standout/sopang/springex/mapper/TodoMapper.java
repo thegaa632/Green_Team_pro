@@ -3,12 +3,12 @@ package com.standout.sopang.springex.mapper;
 
 import com.standout.sopang.springex.domain.TodoVO;
 import com.standout.sopang.springex.dto.PageRequestDTO;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
+@Repository
 public interface TodoMapper {
-
-    String getTime();
 
     void insert(TodoVO todoVO);
 

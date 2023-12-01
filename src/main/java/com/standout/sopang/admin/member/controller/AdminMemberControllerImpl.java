@@ -33,33 +33,33 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 	private AdminMemberService adminMemberService;
 
 
-	//È¸¿ø°ü¸®
-	@RequestMapping(value="/adminMemberMain.do" ,method={RequestMethod.POST,RequestMethod.GET})
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+	@RequestMapping(value="/adminMemberMain" ,method={RequestMethod.POST,RequestMethod.GET})
 	@Override
 	public String adminGoodsMain(Map<String, String> dateMap, HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
-		//fixedSearchPeriod°ªÀ» ¹Þ¾Æ ÀúÀå
+		//fixedSearchPeriodï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
-		//±â°£ ÃÊ±âÈ­
+		//ï¿½â°£ ï¿½Ê±ï¿½È­
 		String beginDate=null,endDate=null;
 
-		//fixedSearchPeriod°ª °¡°øÇØ dateMap¿¡ put
+		//fixedSearchPeriodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dateMapï¿½ï¿½ put
 		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 		beginDate=tempDate[0];
 		endDate=tempDate[1];
 		dateMap.put("beginDate", beginDate);
 		dateMap.put("endDate", endDate);
 
-		//condMap¿¡ put ÈÄ listMember¼öÇà.
+		//condMapï¿½ï¿½ put ï¿½ï¿½ listMemberï¿½ï¿½ï¿½ï¿½.
 		HashMap<String,Object> condMap=new HashMap<String,Object>();
 		condMap.put("beginDate",beginDate);
 		condMap.put("endDate", endDate);
 		ArrayList<MemberDTO> member_list=adminMemberService.listMember(condMap);
 
-		//¸®ÅÏµÈ È¸¿ø¸®½ºÆ® member_list¸¦  mavÀÇ member_list¿¡ ºÎ¿©
+		//ï¿½ï¿½ï¿½Ïµï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® member_listï¿½ï¿½  mavï¿½ï¿½ member_listï¿½ï¿½ ï¿½Î¿ï¿½
 
 		model.addAttribute("member_list", member_list);
 
-		//³¯Â¥Çü½ÄÁöÁ¤
+		//ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 		String beginDate1[]=beginDate.split("-");
 		String endDate2[]=endDate.split("-");
 
@@ -73,20 +73,20 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 		return "/admin/member/adminMemberMain";
 	}
 
-	//È¸¿ø°ü¸®
+	//È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //	@RequestMapping(value="/adminMemberMain" ,method={RequestMethod.POST,RequestMethod.GET})
 //	public String adminGoodsMain(@RequestParam Map<String, String> dateMap, Model model,
 //			                           HttpServletRequest request, HttpServletResponse response)  throws Exception{
 //		String viewName=(String)request.getAttribute("viewName");
 //		ModelAndView mav = new ModelAndView(viewName);
 //
-//		//fixedSearchPeriod°ªÀ» ¹Þ¾Æ ÀúÀå
+//		//fixedSearchPeriodï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ ï¿½ï¿½ï¿½ï¿½
 //		String fixedSearchPeriod = dateMap.get("fixedSearchPeriod");
 //
-//		//±â°£ ÃÊ±âÈ­
+//		//ï¿½â°£ ï¿½Ê±ï¿½È­
 //		String beginDate=null,endDate=null;
 //
-//		//fixedSearchPeriod°ª °¡°øÇØ dateMap¿¡ put
+//		//fixedSearchPeriodï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ dateMapï¿½ï¿½ put
 //		String [] tempDate=calcSearchPeriod(fixedSearchPeriod).split(",");
 //		beginDate=tempDate[0];
 //		endDate=tempDate[1];
@@ -94,16 +94,16 @@ public class AdminMemberControllerImpl extends BaseController  implements AdminM
 //		dateMap.put("endDate", endDate);
 //
 //
-//		//condMap¿¡ put ÈÄ listMember¼öÇà.
+//		//condMapï¿½ï¿½ put ï¿½ï¿½ listMemberï¿½ï¿½ï¿½ï¿½.
 //		HashMap<String,Object> condMap=new HashMap<String,Object>();
 //		condMap.put("beginDate",beginDate);
 //		condMap.put("endDate", endDate);
 //		ArrayList<MemberVO> member_list=adminMemberService.listMember(condMap);
 //
-//		//¸®ÅÏµÈ È¸¿ø¸®½ºÆ® member_list¸¦  mavÀÇ member_list¿¡ ºÎ¿©
+//		//ï¿½ï¿½ï¿½Ïµï¿½ È¸ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® member_listï¿½ï¿½  mavï¿½ï¿½ member_listï¿½ï¿½ ï¿½Î¿ï¿½
 //		mav.addObject("member_list", member_list);
 //
-//		//³¯Â¥Çü½ÄÁöÁ¤
+//		//ï¿½ï¿½Â¥ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
 //		String beginDate1[]=beginDate.split("-");
 //		String endDate2[]=endDate.split("-");
 //		mav.addObject("beginYear",beginDate1[0]);

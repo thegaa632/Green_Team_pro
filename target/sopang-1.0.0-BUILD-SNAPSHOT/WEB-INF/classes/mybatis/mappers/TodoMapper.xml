@@ -2,7 +2,7 @@
 <!DOCTYPE mapper
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.standout.sopang.springex.mapper.TodoMapper">
+<mapper namespace="mapper.TodoMapper">
 
     <sql id="search">
         <where>
@@ -32,16 +32,18 @@
     </sql>
 
 
-    <select id="getTime" resultType="string">
-        select now()
-    </select>
+<!--    <select id="getTime" resultType="string">-->
+<!--        select now()-->
+<!--    </select>-->
 
     <insert id="insert">
         insert into tbl_todo (title, dueDate, writer) values  ( #{title}, #{dueDate}, #{writer})
     </insert>
 
     <select id="selectAll" resultType="com.standout.sopang.springex.domain.TodoVO">
-        select * from tbl_todo order by tno desc
+        select *
+        from tbl_todo
+        order by tno desc
     </select>
 
     <select id="selectOne" resultType="com.standout.sopang.springex.domain.TodoVO">
@@ -57,13 +59,13 @@
         update tbl_todo set title = #{title} , dueDate = #{dueDate}, finished= #{finished} where tno = #{tno}
     </update>
 
-<!--    <select id="selectList" resultType="domain.com.standout.sopang.springex.TodoVO">-->
-<!--        select * from tbl_todo order by tno desc limit #{skip}, #{size}-->
-<!--    </select>-->
+    <!--    <select id="selectList" resultType="domain.com.standout.sopang.springex.TodoVO">-->
+    <!--        select * from tbl_todo order by tno desc limit #{skip}, #{size}-->
+    <!--    </select>-->
 
     <select id="selectList" resultType="com.standout.sopang.springex.domain.TodoVO">
         select * from tbl_todo
-        <include refid="search"></include>
+        <include refid="search"/>
         order by tno desc limit #{skip}, #{size}
     </select>
 
@@ -71,9 +73,8 @@
 
     <select id="getCount" resultType="int">
         select count(tno) from tbl_todo
-        <include refid="search"></include>
+        <include refid="search"/>
     </select>
 
 
 </mapper>
-

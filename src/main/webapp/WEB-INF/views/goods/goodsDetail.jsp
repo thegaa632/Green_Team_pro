@@ -106,6 +106,11 @@
 					id="detailInfo2" data-bs-toggle="list" href="#detailInfo02"
 					role="tab" aria-controls="detailInfo02" style="width: 250px">
 						배송/교환/반품 안내</a></li>
+				<li class="nav-item"><a
+					class="nav-link rounded-0 py-3 text-center fw-bold"
+					id="detailInfo3" data-bs-toggle="list" href="#detailInfo03"
+					role="tab" aria-controls="detailInfo03" style="width: 250px">
+						QnA 및 문의사항</a></li>
 			</ul>
 			<!-- tab Caller -->
 
@@ -132,6 +137,12 @@
 					<img src="${contextPath}/resources/img/goods/detailInfo.jpg">
 				</div>
 				<!-- 상품/배송정보등의 외 정보 -->
+
+				<!-- QnA 및 문의사항 정보 -->
+				<div class="tab-pane" id="detailInfo03" role="tabpanel"
+					aria-labelledby="detailInfo3">
+				</div>
+				<!-- QnA 및 문의사항 정보 -->
 			</div>
 			<!-- tab 본문 -->
 
