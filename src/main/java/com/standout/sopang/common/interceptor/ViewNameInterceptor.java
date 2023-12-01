@@ -68,12 +68,6 @@ public class ViewNameInterceptor extends HandlerInterceptorAdapter {
 			//System.out.println("로그인하지않았거나 예상하기 어려운 예외가 발생했습니다.");
 		}
 
-		//공통 viewName 리턴.
-		try {
-			String viewName = getViewName(request);
-			request.setAttribute("viewName", viewName);
-		} catch (Exception e) {e.printStackTrace();}
-
 		return true;
 	}
 

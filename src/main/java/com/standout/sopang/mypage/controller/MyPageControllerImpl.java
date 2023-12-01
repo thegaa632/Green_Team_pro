@@ -86,11 +86,11 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 	@RequestMapping(value="/cancelMyOrder" ,method = RequestMethod.POST)
 	public String cancelMyOrder(@RequestParam("order_id")  String order_id,Model model,RedirectAttributes redirectAttributes,
 			                         HttpServletRequest request, HttpServletResponse response)  throws Exception {
-		ModelAndView mav = new ModelAndView();
+//		ModelAndView mav = new ModelAndView();
 		//주문 id order_id로 db삭제 후 cancel_order message 리턴
 		myPageService.cancelOrder(order_id);
 		model.addAttribute("message", "cancel_order");
-		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
+//		mav.setViewName("redirect:/mypage/listMyOrderHistory.do");
 		return "redirect:/mypage/listMyOrderHistory";
 	}
 

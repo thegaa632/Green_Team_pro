@@ -34,7 +34,11 @@
         </dependency>
 
             <!-- 다른 의존성들 ... -->
-
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>6.2.1.Final</version>
+        </dependency>
 
 
         <!-- AspectJ -->

@@ -66,10 +66,10 @@ function fn_overlapped(){
 		<!-- password -->
 		<input
 			class="form-control form-control-lg rounded-0 mb-3 member_pwWrite"
-			name="member_pw" type="text" placeholder="비밀번호" required
+			name="member_pw" type="password" placeholder="비밀번호" required
 			onblur="member_pwChecking()"> <input
 			class="form-control form-control-lg rounded-0 mb-0 member_pwCheck"
-			type="text" placeholder="비밀번호 확인" required
+			type="password" placeholder="비밀번호 확인" required
 			onblur="member_pwChecking()">
 
 		<div class="member_pw-feedback valid-feedback text-start fs-07 d-none">
