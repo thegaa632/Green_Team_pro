@@ -22,9 +22,9 @@
 			<c:forEach var="item" items="${goodsList}">
 				<div class="p-0">
 					<a
-						href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}"
+						href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id}"
 						class="text-decoration-none d-block"> <img
-						src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+						src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 						style="width: 250px">
 						<p class="mt-4 mb-0 text-truncate fw-bold fs-6">${item.goods_title}</p>
 						<p>

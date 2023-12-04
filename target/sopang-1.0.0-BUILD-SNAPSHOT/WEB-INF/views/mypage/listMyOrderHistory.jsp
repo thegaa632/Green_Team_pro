@@ -97,7 +97,7 @@
 															<div class="d-flex">
 																<!-- 상품이미지 -->
 																<img
-																	src="${contextPath}/thumbnails.do?goods_id=${item2.goods_id}&fileName=${item2.goods_fileName}"
+																	src="${contextPath}/thumbnails?goods_id=${item2.goods_id}&fileName=${item2.goods_fileName}"
 																	style="width: 64px; height: 64px">
 																<!-- 상품이미지 -->
 
@@ -106,7 +106,7 @@
 
 																		<!-- 상품명 -->
 																		<a class="text-decoration-none"
-																			href="${contextPath}/goods/goodsDetail.do?goods_id=${item2.goods_id }">${item2.goods_title}</a>
+																			href="${contextPath}/goods/goodsDetail?goods_id=${item2.goods_id }">${item2.goods_title}</a>
 																		<!-- 상품명 -->
 
 																	</p>
@@ -207,7 +207,7 @@
 				formObj.appendChild(i_fixedSearch_period);
 				document.body.appendChild(formObj);
 				formObj.method = "get";
-				formObj.action = "${contextPath}/mypage/listMyOrderHistory.do";
+				formObj.action = "${contextPath}/mypage/listMyOrderHistory";
 				formObj.submit();
 			}
 			
@@ -226,21 +226,21 @@
 				    if(option == "cancel"){
 				    	var answer=confirm("주문을 취소하시겠습니까?");
 						if(answer==true){
-							formObj.action="${contextPath}/mypage/cancelMyOrder.do";
+							formObj.action="${contextPath}/mypage/cancelMyOrder";
 							formObj.submit();
 						}
 				    }else if(option == "return"){
 				    //반품
 				    	var answer=confirm("반품신청 하시겠습니까?");
 						if(answer==true){
-				    	formObj.action="${contextPath}/mypage/returnMyOrder.do";
+				    	formObj.action="${contextPath}/mypage/returnMyOrder";
 				    	formObj.submit();
 						}
 				    }else if(option == "exchange"){
 				    //교환
 				    	var answer=confirm("교환신청 하시겠습니까?");
 						if(answer==true){
-				    	formObj.action="${contextPath}/mypage/exchangeMyOrder.do";
+				    	formObj.action="${contextPath}/mypage/exchangeMyOrder";
 				    	formObj.submit();
 						}
 				    }

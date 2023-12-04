@@ -271,7 +271,7 @@ function fn_delete_member(member_id ,del_yn){
 		$.ajax({
 			type : "post",
 			async : false,
-			url : "${contextPath}/mypage/deleteMember.do",
+			url : "${contextPath}/mypage/deleteMember",
 			data : {
 				member_id:member_id,
 				del_yn:del_yn

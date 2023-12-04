@@ -7,7 +7,7 @@
 
 <script>
 	var array_index=0;
-	var SERVER_URL="${contextPath}/thumbnails.do";
+	var SERVER_URL="${contextPath}/thumbnails";
 	function fn_show_next_goods(){
 		var img_sticky=document.getElementById("img_sticky");
 		var cur_goods_num=document.getElementById("cur_goods_num");
@@ -57,7 +57,7 @@ document.addEventListener('scroll', function() {
 <div
 	class="d-flex flex-column quickMenu"
 	style="width: 130px;">
-	<a href="${contextPath}/cart/myCartList.do" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>${cartCount }</span></a>
+	<a href="${contextPath}/cart/myCartList" class="btn btn-main rounded-0 py-2 d-block small">장바구니 <span>${cartCount }</span></a>
 	<p href="" class="btn btn-dark rounded-0 py-2 d-block small mb-0">최근본상품</span>
 	</p>
 	<div class="d-flex flex-column bg-white border border-top-0 p-2 pb-0">
@@ -72,8 +72,8 @@ document.addEventListener('scroll', function() {
 								<c:forEach var="item" items="${quickGoodsList }"
 									varStatus="itemNum">
 									
-									<a href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id}" class="back_eee d-block mb-2"> <img
-										src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+									<a href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id}" class="back_eee d-block mb-2"> <img
+										src="${contextPath}/thumbnails?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 										class="" style="width: 112px; height: 112">
 										<%-- <p>${item.goods_id}</p> --%>
 									</a>

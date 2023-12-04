@@ -7,7 +7,8 @@
     <typeAlias type="com.standout.sopang.goods.vo.GoodsVO" alias="goodsVO" />
     
     <typeAlias type="com.standout.sopang.goods.vo.ImageFileVO" alias="imageFileVO" />
-     <typeAlias type="com.standout.sopang.member.vo.MemberVO" alias="memberVO" />
+
+    <typeAlias type="com.standout.sopang.member.vo.MemberVO" alias="memberVO" />
      
     <typeAlias type="com.standout.sopang.cart.vo.CartVO" alias="cartVO" />
  
@@ -15,7 +16,7 @@
 
     <typeAlias type="com.standout.sopang.mypage.vo.MyPageVO" alias="mypageVO" />
 
-    <typeAlias type="com.standout.sopang.springex.domain.TodoVO" alias="TodoVO" />
+    <typeAlias type="com.standout.sopang.springex.domain.TodoVO" alias="todoVO" />
 
   </typeAliases>
 </configuration>

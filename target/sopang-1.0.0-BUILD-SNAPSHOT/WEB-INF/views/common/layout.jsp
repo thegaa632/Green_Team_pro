@@ -37,7 +37,7 @@
 
 	<div
 		class="footer border-top mt-5 py-5 text-center small text-secondary">
-		<a href="${contextPath}/main/main.do"> <img
+		<a href="${contextPath}/main/main"> <img
 			src="${contextPath}/resources/img/logo.png" width="130" class="p-2"
 			style="filter: grayscale(1);">
 		</a>

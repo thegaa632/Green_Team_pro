@@ -14,43 +14,43 @@ import java.util.Arrays;
 @Log4j2
 public class CommonExceptionAdvice {
 
-    @ResponseBody
-    @ExceptionHandler(NumberFormatException.class)
-    public String exceptNumber(NumberFormatException numberFormatException){
+//    @ResponseBody
+//    @ExceptionHandler(NumberFormatException.class)
+//    public String exceptNumber(NumberFormatException numberFormatException){
+//
+//        log.error("-----------------------------------");
+//        log.error(numberFormatException.getMessage());
+//
+//        return "NUMBER FORMAT EXCEPTION";
+//
+//    }
 
-        log.error("-----------------------------------");
-        log.error(numberFormatException.getMessage());
-
-        return "NUMBER FORMAT EXCEPTION";
-
-    }
-
-    @ResponseBody
-    @ExceptionHandler(Exception.class)
-    public String exceptCommon(Exception exception){
-
-        log.error("-----------------------------------");
-        log.error(exception.getMessage());
-
-        StringBuffer buffer = new StringBuffer("<ul>");
-
-        buffer.append("<li>" +exception.getMessage()+"</li>");
-
-        Arrays.stream(exception.getStackTrace()).forEach(stackTraceElement -> {
-            buffer.append("<li>"+stackTraceElement+"</li>");
-        });
-        buffer.append("</ul>");
-
-        return buffer.toString();
-    }
+//    @ResponseBody
+//    @ExceptionHandler(Exception.class)
+//    public String exceptCommon(Exception exception){
+//
+//        log.error("-----------------------------------");
+//        log.error(exception.getMessage());
+//
+//        StringBuffer buffer = new StringBuffer("<ul>");
+//
+//        buffer.append("<li>" +exception.getMessage()+"</li>");
+//
+//        Arrays.stream(exception.getStackTrace()).forEach(stackTraceElement -> {
+//            buffer.append("<li>"+stackTraceElement+"</li>");
+//        });
+//        buffer.append("</ul>");
+//
+//        return buffer.toString();
+//    }
 
 
-    @ExceptionHandler(NoHandlerFoundException.class)
-    @ResponseStatus(HttpStatus.NOT_FOUND)
-    public String notFound(){
-
-        return "custom404";
-    }
+//    @ExceptionHandler(NoHandlerFoundException.class)
+//    @ResponseStatus(HttpStatus.NOT_FOUND)
+//    public String notFound(){
+//
+//        return "custom404";
+//    }
 
 
 

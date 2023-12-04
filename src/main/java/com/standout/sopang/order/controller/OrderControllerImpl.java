@@ -54,12 +54,12 @@ public class OrderControllerImpl extends BaseController implements OrderControll
 		// 이전에 로그인 상태인 경우는 주문과정 진행
 		if (isLogOn == null || isLogOn == false) {
 			session.setAttribute("orderInfo", _orderDTO);
-			session.setAttribute("action", "/order/orderEachGoods.do");
+			session.setAttribute("action", "/order/orderEachGoods");
 			return "redirect:/member/login";
 		}
 		// 로그아웃 상태인 경우 로그인 화면으로 이동
 		else {
-			if (action != null && action.equals("/order/orderEachGoods.do")) {
+			if (action != null && action.equals("/order/orderEachGoods")) {
 				orderDTO = (OrderDTO) session.getAttribute("orderInfo");
 				session.removeAttribute("action");
 			} else {

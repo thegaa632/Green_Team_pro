@@ -111,7 +111,7 @@ public class CartControllerImpl extends BaseController implements CartController
 
 		//@RequestParam받은 cart_id 상품을 삭제 후 myCartList로 redirect
 		cartService.removeCartGoods(cart_id);
-		return "redirect:/cart/myCartList.do";
+		return "redirect:/cart/myCartList";
 	}
 
 	//장바구니 수정

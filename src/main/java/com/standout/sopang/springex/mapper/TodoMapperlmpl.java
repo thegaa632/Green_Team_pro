@@ -16,13 +16,13 @@ public class TodoMapperlmpl implements TodoMapper {
 
         @Override
         public void insert(TodoVO todoVO) {
-            sqlSession.insert("mapper.TodoMapper",todoVO);
+          sqlSession.insert("mapper.TodoMapper",todoVO);
 
         }
         @Override
         public List<TodoVO> selectAll() {
-            List<TodoVO> List= sqlSession.selectList("mapper.TodoMapper.insert");
-            return List;
+            List<TodoVO> voList= sqlSession.selectList("mapper.TodoMapper.insert");
+            return voList;
         }
 
         @Override
@@ -43,9 +43,10 @@ public class TodoMapperlmpl implements TodoMapper {
         }
 
         @Override
+
         public List<TodoVO> selectList(PageRequestDTO pageRequestDTO) {
-            sqlSession.selectList("mapper.TodoMapper.selectList",pageRequestDTO);
-            return null;
+            List<TodoVO> voList =  sqlSession.selectList("mapper.TodoMapper.selectList",pageRequestDTO);
+            return voList;
         }
 
         @Override

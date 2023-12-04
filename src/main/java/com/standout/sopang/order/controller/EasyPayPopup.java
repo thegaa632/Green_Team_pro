@@ -86,7 +86,7 @@ public class EasyPayPopup {
 
 
 
-	@RequestMapping(value="/test/naverOrder.do")
+	@RequestMapping(value="/test/naverOrder")
 	public Map<String, Object> naverOrder(@RequestParam Map<String, String> dateMap , HttpServletRequest request,
 										  HttpServletResponse response) throws Exception{
 

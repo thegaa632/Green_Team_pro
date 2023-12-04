@@ -17,10 +17,10 @@ import net.coobird.thumbnailator.Thumbnails;
 
 @Controller
 public class FileDownloadController {
-	//ÆÄÀÏ°æ·Î
+	//ï¿½ï¿½ï¿½Ï°ï¿½ï¿½
 	private static String CURR_IMAGE_REPO_PATH = "C:\\sopang\\file_repo";
 	
-	//¾÷·Îµå/ÀÎ¼­Æ® µÈ ÆÄÀÏ ºÒ·¯¿À±â, goods_id¿Í fileName°ªÀ» ¹Þ¾Æ Ç®·ÂÇÑ´Ù.
+	//ï¿½ï¿½ï¿½Îµï¿½/ï¿½Î¼ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½, goods_idï¿½ï¿½ fileNameï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ Ç®ï¿½ï¿½ï¿½Ñ´ï¿½.
 	@RequestMapping("/download")
 	protected void download(@RequestParam("fileName") String fileName,
 		                 	@RequestParam("goods_id") String goods_id,
@@ -34,8 +34,8 @@ public class FileDownloadController {
 		FileInputStream in=new FileInputStream(image); 
 		byte[] buffer=new byte[1024*8];
 		while(true){
-			int count=in.read(buffer); //¹öÆÛ¿¡ ÀÐ¾îµéÀÎ ¹®ÀÚ°³¼ö
-			if(count==-1)  //¹öÆÛÀÇ ¸¶Áö¸·¿¡ µµ´ÞÇß´ÂÁö Ã¼Å©
+			int count=in.read(buffer); //ï¿½ï¿½ï¿½Û¿ï¿½ ï¿½Ð¾ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ú°ï¿½ï¿½ï¿½
+			if(count==-1)  //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´ï¿½ï¿½ï¿½ Ã¼Å©
 				break;
 			out.write(buffer,0,count);
 		}
@@ -43,8 +43,8 @@ public class FileDownloadController {
 		out.close();
 	}
 	
-	//¾÷·Îµå/ÀÎ¼­Æ® µÈ ÆÄÀÏ ½æ³×ÀÏ·Î ºÒ·¯¿À±â, goods_id¿Í fileName°ªÀ» ¹Þ¾Æ Ç®·ÂÇÑ´Ù.
-	@RequestMapping("/thumbnails.do")
+	//ï¿½ï¿½ï¿½Îµï¿½/ï¿½Î¼ï¿½Æ® ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï·ï¿½ ï¿½Ò·ï¿½ï¿½ï¿½ï¿½ï¿½, goods_idï¿½ï¿½ fileNameï¿½ï¿½ï¿½ï¿½ ï¿½Þ¾ï¿½ Ç®ï¿½ï¿½ï¿½Ñ´ï¿½.
+	@RequestMapping("/thumbnails")
 	protected void thumbnails(@RequestParam("fileName") String fileName,
                             	@RequestParam("goods_id") String goods_id,
 			                 HttpServletResponse response) throws Exception {
@@ -56,7 +56,7 @@ public class FileDownloadController {
 			Thumbnails.of(image).size(121,154).outputFormat("png").toOutputStream(out);
 		}
 		
-		//ÆÄÀÏÅ©±â ¼³Á¤
+		//ï¿½ï¿½ï¿½ï¿½Å©ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 		byte[] buffer = new byte[1024 * 8];
 		out.write(buffer);
 		out.close();

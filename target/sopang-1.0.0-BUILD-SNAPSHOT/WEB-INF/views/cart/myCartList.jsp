@@ -30,7 +30,7 @@ function modify_cart_qty(index, goods_id, value){
 	$.ajax({
 		type : "post",
 		async : false,
-		url : "${contextPath}/cart/modifyCartQty.do",
+		url : "${contextPath}/cart/modifyCartQty",
 		data : {
 			goods_id:goods_id,
 			cart_goods_qty:cart_goods_qty
@@ -38,7 +38,7 @@ function modify_cart_qty(index, goods_id, value){
 		success : function(data, textStatus) {
 			if(data.trim()=='modify_success'){
 				alert("수량을 변경했습니다!!");
-				location.href='/cart/myCartList.do'
+				location.href='/cart/myCartList'
 			}else{alert("다시 시도해 주세요!!");
 			}
 		},
@@ -60,7 +60,7 @@ function delete_cart_goods(cart_id){
 	formObj.appendChild(i_cart);
     document.body.appendChild(formObj); 
     formObj.method="post";
-    formObj.action="${contextPath}/cart/removeCartGoods.do";
+    formObj.action="${contextPath}/cart/removeCartGoods";
     formObj.submit();
 }
 
@@ -154,7 +154,7 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
     
     //submit
     formObj.method="post";
-    formObj.action="${contextPath}/order/orderEachGoods.do";
+    formObj.action="${contextPath}/order/orderEachGoods";
     formObj.submit();
 }
 
@@ -207,12 +207,12 @@ function fn_order_each_goods(goods_id,goods_title,goods_sales_price,fileName){
 
 													<!-- 상품상세페이지로 이동 -->
 													<a
-														href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }"
+														href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }"
 														class="text-decoration-none d-block"> <!-- 상품정보 -->
 														<div class="d-flex justify-content-between">
 															<div class="d-flex">
 																<img
-																	src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+																	src="${contextPath}/thumbnails?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 																	style="width: 64px; height: 64px">
 																<div class="ms-3">
 																	<p class="mb-1 mt-1 small">${item.goods_title}</p>

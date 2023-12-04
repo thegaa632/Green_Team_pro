@@ -75,7 +75,7 @@
 
 
 							<!-- 상품추가, showNewGoods할경우 show됨. -->
-							<form action="${contextPath}/admin/goods/addNewGoods.do" method="post" enctype="multipart/form-data">
+							<form action="${contextPath}/admin/goods/addNewGoods" method="post" enctype="multipart/form-data">
 								
 								<tr class="d-none newGoods bg-primary-subtle ">
 
@@ -367,7 +367,7 @@
 													<button
 														class="w-100 btn border-main small rounded-0 samll mb-2"
 														type="submit"
-														formaction="${contextPath}/admin/goods/modifyGoods.do?goods_id=${item.goods_id }">수정</button>
+														formaction="${contextPath}/admin/goods/modifyGoods?goods_id=${item.goods_id }">수정</button>
 													<!-- 수정 --> <!-- 삭제 -->
 													<button href="https://www.naver.com"
 														class="w-100 btn border-main small rounded-0 samll mb-0"
@@ -475,7 +475,7 @@ function getContextPath() {
 //상품삭제
 function deleteGoods(goods_id){
 	var url = getContextPath();
-	url += "/goods/deleteGoods.do?goods_id="+goods_id;
+	url += "/goods/deleteGoods?goods_id="+goods_id;
 	//confirm단계를 거치고 사용자가 취소를 누를경우 삭제를 취소한다.
 	 if (!confirm("삭제하시겠습니까?")) {
 	    } else {

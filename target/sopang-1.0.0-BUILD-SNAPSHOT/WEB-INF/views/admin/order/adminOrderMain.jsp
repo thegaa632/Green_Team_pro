@@ -379,7 +379,7 @@ function fn_modify_order_state(index, order_id){
 	$.ajax({
 		type : "post",
 		async : false, 
-		url : "${contextPath}/admin/order/modifyDeliveryState.do",
+		url : "${contextPath}/admin/order/modifyDeliveryState",
 		data : {
 			order_id:order_id,
 			delivery_state:delivery_state

@@ -28,11 +28,10 @@ public class MainController extends BaseController {
 	@Autowired
 	private GoodsService goodsService;
 
-	///main/main.do로 요청시 listGoods, 상품목록을 불러와 goodsMap에 저장 후 viewName과 함께 리턴.
 	@RequestMapping(value = "/main/main", method = {RequestMethod.POST, RequestMethod.GET})
 	public String main(HttpServletRequest request, HttpServletResponse response, Model model) throws Exception {
 		HttpSession session;
-		log.info("잘찍힘");
+		log.info("硫붿씤而⑦듃濡ㅻ윭 吏꾩엯");
 //		ModelAndView mav=new ModelAndView();
 //		String viewName=(String)request.getAttribute("viewName");
 //		mav.setViewName(viewName);

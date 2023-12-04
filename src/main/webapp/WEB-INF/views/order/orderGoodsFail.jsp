@@ -39,7 +39,7 @@
 							<c:forEach var="item" items="${myOrderList}">
 
 								<a
-									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }"
+									href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }"
 									class="shadow-sm p-0 mt-3 rounded border border-light d-flex justify-content-between text-decoration-none">
 									<div class="d-flex">
 										<div class="d-flex align-items-center p-4">
@@ -48,7 +48,7 @@
 
 													<!-- 상품이미지 -->
 													<img
-														src="${contextPath}/thumbnails.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
+														src="${contextPath}/thumbnails?goods_id=${item.goods_id}&fileName=${item.goods_fileName}"
 														width="64px">
 													<!-- 상품이미지 -->
 
@@ -404,7 +404,7 @@
 					<!-- 결제하기-->
 
 					<!-- 취소하기, 메인페이지로 돌아간다.-->
-					<a href="${contextPath}/main/main.do"
+					<a href="${contextPath}/main/main"
 						class="btn btn-lg border-main rounded-0 w-100 d-block fw-bold p-2 lh-lg mt-0 mb-3 fs-6">취소하기</a>
 					<!-- 취소하기, 메인페이지로 돌아간다.-->
 					

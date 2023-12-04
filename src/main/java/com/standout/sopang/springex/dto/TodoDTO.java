@@ -1,6 +1,7 @@
 package com.standout.sopang.springex.dto;
 
 import lombok.*;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotEmpty;
@@ -18,6 +19,7 @@ public class TodoDTO {
     @NotEmpty
     private String title;
 
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Future
     private LocalDate dueDate;
 

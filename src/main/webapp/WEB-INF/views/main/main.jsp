@@ -15,31 +15,31 @@
 		<!-- tabCaller 버튼영역 -->
 		<a class="tab-pane show active d-block" id="hero01" role="tabpanel"
 			aria-labelledby="hero1"
-			href="${contextPath}/goods/goodsDetail.do?goods_id=150"> <img
+			href="${contextPath}/goods/goodsDetail?goods_id=150"> <img
 			src="${contextPath}/resources/img/main/hero1.jpg" class="today-image"
 			data-log-props="" data-adsplatform=""
 			style="display: block; z-index: 1; position: absolute;">
 		</a> <a class="tab-pane" id="hero02" role="tabpanel"
 			aria-labelledby="hero2"
-			href="${contextPath}/goods/goodsDetail.do?goods_id=410"> <img
+			href="${contextPath}/goods/goodsDetail?goods_id=410"> <img
 			src="${contextPath}/resources/img/main/hero2.jpg" class="today-image"
 			data-log-props="" data-adsplatform=""
 			style="display: block; z-index: 1; position: absolute;">
 		</a> <a class="tab-pane" id="hero03" role="tabpanel"
 			aria-labelledby="hero3"
-			href="${contextPath}/goods/goodsDetail.do?goods_id=330"> <img
+			href="${contextPath}/goods/goodsDetail?goods_id=330"> <img
 			src="${contextPath}/resources/img/main/hero3.jpg" class="today-image"
 			data-log-props="" data-adsplatform=""
 			style="display: block; z-index: 1; position: absolute;">
 		</a> <a class="tab-pane" id="hero04" role="tabpanel"
 			aria-labelledby="hero4"
-			href="${contextPath}/goods/goodsDetail.do?goods_id=270"> <img
+			href="${contextPath}/goods/goodsDetail?goods_id=270"> <img
 			src="${contextPath}/resources/img/main/hero4.jpg" class="today-image"
 			data-log-props="" data-adsplatform=""
 			style="display: block; z-index: 1; position: absolute;">
 		</a> <a class="tab-pane" id="hero05" role="tabpanel"
 			aria-labelledby="hero5"
-			href="${contextPath}/goods/goodsDetail.do?goods_id=420"> <img
+			href="${contextPath}/goods/goodsDetail?goods_id=420"> <img
 			src="${contextPath}/resources/img/main/hero5.jpg" class="today-image"
 			data-log-props="" data-adsplatform=""
 			style="display: block; z-index: 1; position: absolute;">
@@ -97,9 +97,9 @@
 			<c:forEach var="item" items="${goodsMap.bestseller}">
 				<c:set var="goods_count" value="${goods_count+1 }" />
 				<a class="back_eee position-relative"
-					href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+					href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }">
 					<img class="position-absolute top-50 start-50 translate-middle"
-					src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+					src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 				</a>
 			</c:forEach>
 			<!-- goodsMap 상품리스트 중, goods_status의 값이  bestseller로 지정된 리스트만 추출해 뿌린다.  -->
@@ -154,7 +154,7 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
+						<a href="${contextPath}/goods/menuGoods?menuGoods=디지털"
 							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">디지털</p> <span class="small">바로가기
 								> </span>
@@ -163,7 +163,7 @@
 
 					<div class="position-relative">
 						<img src="${contextPath}/resources/img/main/hot1.jpg"> <a
-							href="${contextPath}/goods/menuGoods.do?menuGoods=디지털"
+							href="${contextPath}/goods/menuGoods?menuGoods=디지털"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
 							<p class="mb-0 fw-bold">디지털</p> <span class="small">sopang이
@@ -178,10 +178,10 @@
 							<c:set var="goods_count" value="${goods_count+1 }" />
 							<div>
 								<a class="text-decoration-none"
-									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }">
 									<div class="back_eee">
 										<img
-											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+											src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
@@ -208,7 +208,7 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
+						<a href="${contextPath}/goods/menuGoods?menuGoods=도서"
 							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">도서</p> <span class="small">바로가기
 								> </span>
@@ -217,7 +217,7 @@
 
 					<div class="position-relative">
 						<img src="${contextPath}/resources/img/main/hot2.jpg"> <a
-							href="${contextPath}/goods/menuGoods.do?menuGoods=도서"
+							href="${contextPath}/goods/menuGoods?menuGoods=도서"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
 							<p class="mb-0 fw-bold">도서</p> <span class="small">sopang이
@@ -233,10 +233,10 @@
 							<c:set var="goods_count" value="${goods_count+1 }" />
 							<div>
 								<a class="text-decoration-none"
-									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }">
 									<div class="back_eee">
 										<img
-											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+											src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
@@ -263,7 +263,7 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
+						<a href="${contextPath}/goods/menuGoods?menuGoods=건강기능식품"
 							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">건강기능식품</p> <span class="small">바로가기
 								> </span>
@@ -272,7 +272,7 @@
 
 					<div class="position-relative">
 						<img src="${contextPath}/resources/img/main/hot3.jpg"> <a
-							href="${contextPath}/goods/menuGoods.do?menuGoods=건강기능식품"
+							href="${contextPath}/goods/menuGoods?menuGoods=건강기능식품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
 							<p class="mb-0 fw-bold">건강기능식품</p> <span class="small">sopang이
@@ -288,10 +288,10 @@
 							<c:set var="goods_count" value="${goods_count+1 }" />
 							<div>
 								<a class="text-decoration-none"
-									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }">
 									<div class="back_eee">
 										<img
-											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+											src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>
@@ -318,7 +318,7 @@
 
 					<div class="pt-4 pe-5 flex-grow-1 box-sixing-content"
 						style="width: 200px">
-						<a href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
+						<a href="${contextPath}/goods/menuGoods?menuGoods=생활용품"
 							class="text-decoration-none">
 							<p class="fw-bold fs-4 mb-1">생활용품</p> <span class="small">바로가기
 								> </span>
@@ -327,7 +327,7 @@
 
 					<div class="position-relative">
 						<img src="${contextPath}/resources/img/main/hot4.jpg"> <a
-							href="${contextPath}/goods/menuGoods.do?menuGoods=생활용품"
+							href="${contextPath}/goods/menuGoods?menuGoods=생활용품"
 							class="btn btn-main rounded-0 position-absolute bottom-0 start-50 translate-middle z-2 rounded-0 py-3 w100 d-block"
 							style="width: 80%">
 							<p class="mb-0 fw-bold">생활용품</p> <span class="small">sopang이
@@ -343,10 +343,10 @@
 							<c:set var="goods_count" value="${goods_count+1 }" />
 							<div>
 								<a class="text-decoration-none"
-									href="${contextPath}/goods/goodsDetail.do?goods_id=${item.goods_id }">
+									href="${contextPath}/goods/goodsDetail?goods_id=${item.goods_id }">
 									<div class="back_eee">
 										<img
-											src="${contextPath}/download.do?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
+											src="${contextPath}/download?goods_id=${item.goods_id}&fileName=${item.goods_fileName}">
 									</div>
 									<p class="mt-2 mb-1 text-truncate">${item.goods_title}</p>
 									<p>

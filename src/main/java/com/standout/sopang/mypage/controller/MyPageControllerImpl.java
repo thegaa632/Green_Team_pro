@@ -101,7 +101,7 @@ public class MyPageControllerImpl extends BaseController  implements MyPageContr
 		//주문 id order_id로 db삭제 후 returning_goods message 리턴
 		myPageService.returnOrder(order_id);
 		model.addAttribute("message", "returning_goods");
-		return "redirect:/mypage/listMyOrderHistory.do";
+		return "redirect:/mypage/listMyOrderHistory";
 	}
 	//반품
 //	@Override

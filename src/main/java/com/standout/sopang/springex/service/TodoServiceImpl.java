@@ -69,6 +69,9 @@ public class TodoServiceImpl implements TodoService{
 
 
         List<TodoVO> voList = todoMapper.selectList(pageRequestDTO);
+
+        log.info(voList);
+
         List<TodoDTO> dtoList = voList.stream()
                 .map(vo -> modelMapper.map(vo, TodoDTO.class))
                 .collect(Collectors.toList());
